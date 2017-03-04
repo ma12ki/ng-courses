@@ -1,3 +1,25 @@
-lol {
-  width: 100%;
+.title {
+  margin-right: 10px;
+}
+
+.length {
+  font-size: 1em;
+
+  .length-icon {
+    font-size: 1em;
+    width: 1em;
+    height: 1em;
+    vertical-align: text-top;
+  }
+}
+
+.date {
+  font-size: 1em;
+
+  .date-icon {
+    font-size: 1em;
+    width: 1em;
+    height: 1em;
+    vertical-align: text-top;
+  }
 }
