@@ -1,6 +1,11 @@
-<div class="flexDemoContainer" style="border:1px solid red">
-  <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxFlex>
-    <div fxFlex> I'm above on mobile, and left on larger devices. </div>
-    <div fxFlex> I'm below on mobile, and right on larger devices. </div>
-  </div>
+<div fxLayout="column" fxLayoutAlign="stretch" style="border:1px solid green">
+  <header fxFlex style="border:1px solid purple">
+    <h1>Header</h1>
+  </header>
+  <main fxFlex="grow" style="border:1px solid saddlebrown">
+    <h2>Main</h2>
+  </main>
+  <footer fxFlex style="border:1px solid blue">
+    <h3>Footer</h3>
+  </footer>
 </div>

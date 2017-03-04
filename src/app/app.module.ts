@@ -30,6 +30,8 @@ import { AboutComponent } from './about';
 import { NoContentComponent } from './no-content';
 import { XLargeDirective } from './home/x-large';
 import { CoursesModule } from './courses';
+import { HeaderComponent } from './header';
+import { FooterComponent } from './footer';
 
 import '../styles/styles.scss';
 import '../styles/headings.css';
@@ -56,7 +58,9 @@ type StoreType = {
     AboutComponent,
     HomeComponent,
     NoContentComponent,
-    XLargeDirective
+    XLargeDirective,
+    HeaderComponent,
+    FooterComponent,
   ],
   imports: [ // import Angular's modules
     BrowserModule,
@@ -68,7 +72,7 @@ type StoreType = {
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
-    APP_PROVIDERS
+    APP_PROVIDERS,
   ]
 })
 export class AppModule {

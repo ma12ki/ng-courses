@@ -1,0 +1,6 @@
+@import '../../styles/_variables.scss';
+
+:host {
+  height: $header-height;
+  width: 100%;
+}

@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { CoursesContainerComponent } from './courses-container/courses-container.component';
 
@@ -9,6 +10,7 @@ import { CoursesContainerComponent } from './courses-container/courses-container
   ],
   imports: [
     CommonModule,
+    FlexLayoutModule,
   ],
   exports: [
     CoursesContainerComponent,
