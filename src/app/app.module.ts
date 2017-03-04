@@ -25,11 +25,7 @@ import { ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
-import { HomeComponent } from './home';
-import { AboutComponent } from './about';
 import { NoContentComponent } from './no-content';
-import { XLargeDirective } from './home/x-large';
-import { CoursesModule } from './courses';
 import { HeaderComponent } from './header';
 import { FooterComponent } from './footer';
 import { CoursesComponent } from './courses';
@@ -59,10 +55,7 @@ type StoreType = {
   bootstrap: [ AppComponent ],
   declarations: [
     AppComponent,
-    AboutComponent,
-    HomeComponent,
     NoContentComponent,
-    XLargeDirective,
     HeaderComponent,
     FooterComponent,
     CoursesComponent,
@@ -76,7 +69,6 @@ type StoreType = {
     HttpModule,
     // RouterModule.forRoot(ROUTES, { preloadingStrategy: PreloadAllModules }),
     FlexLayoutModule.forRoot(),
-    CoursesModule,
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
