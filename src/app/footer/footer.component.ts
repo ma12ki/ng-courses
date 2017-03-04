@@ -5,7 +5,7 @@ import {
 
 @Component({
   selector: 'c-footer',
-  styleUrls: [],
+  styleUrls: [ './footer.component.scss' ],
   templateUrl: './footer.component.html'
 })
 export class FooterComponent implements OnInit {
