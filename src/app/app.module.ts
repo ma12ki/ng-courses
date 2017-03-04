@@ -32,6 +32,10 @@ import { XLargeDirective } from './home/x-large';
 import { CoursesModule } from './courses';
 import { HeaderComponent } from './header';
 import { FooterComponent } from './footer';
+import { CoursesComponent } from './courses';
+import { ToolbarComponent } from './toolbar';
+import { CourseListComponent } from './course-list';
+import { CourseItemComponent } from './course-item';
 
 import '../styles/styles.scss';
 import '../styles/headings.css';
@@ -61,12 +65,16 @@ type StoreType = {
     XLargeDirective,
     HeaderComponent,
     FooterComponent,
+    CoursesComponent,
+    ToolbarComponent,
+    CourseListComponent,
+    CourseItemComponent,
   ],
   imports: [ // import Angular's modules
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(ROUTES, { preloadingStrategy: PreloadAllModules }),
+    // RouterModule.forRoot(ROUTES, { preloadingStrategy: PreloadAllModules }),
     FlexLayoutModule.forRoot(),
     CoursesModule,
   ],
