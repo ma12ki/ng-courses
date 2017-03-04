@@ -17,3 +17,17 @@ html, body {
 .spacer {
   flex: 1 1 auto;
 }
+
+.hpad {
+  padding-left: $hpad;
+  padding-right: $hpad;
+}
+
+.vpad {
+  padding-top: $vpad;
+  padding-bottom: $vpad;
+}
+
+.pad {
+  padding: $vpad $hpad;
+}

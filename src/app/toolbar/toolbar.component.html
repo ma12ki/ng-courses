@@ -1,2 +1,14 @@
-<input /> <button>Find</button>
-<button>Add course</button>
+<div class="toolbar pad" fxLayout="row" fxLayoutAlign="center center">
+  <md-input-container>
+    <input mdInput placeholder="name or date" />
+  </md-input-container>
+  <div>
+    <button md-button><md-icon>search</md-icon>Find</button>
+  </div>
+
+  <i fxFlex="grow"></i>
+
+  <div>
+    <button md-button><md-icon>add</md-icon>Add course</button>
+  </div>
+</div>
