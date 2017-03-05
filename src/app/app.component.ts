@@ -25,7 +25,9 @@ export class AppComponent implements OnInit {
     public appState: AppState
   ) {}
 
-  public ngOnInit() {}
+  public ngOnInit() {
+    console.log('AppComponent init');
+  }
 
 }
 

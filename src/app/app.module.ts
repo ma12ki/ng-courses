@@ -16,6 +16,7 @@ import {
 } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from '@angular/material';
+import 'hammerjs';
 
 /*
  * Platform and Environment providers/directives/pipes
