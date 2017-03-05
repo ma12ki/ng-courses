@@ -33,6 +33,7 @@ import { CoursesComponent } from './courses';
 import { ToolbarComponent } from './toolbar';
 import { CourseListComponent } from './course-list';
 import { CourseItemComponent } from './course-item';
+import { BreadcrumbsComponent } from './breadcrumbs';
 
 import '../styles/styles.scss';
 import '../styles/headings.css';
@@ -63,6 +64,7 @@ type StoreType = {
     ToolbarComponent,
     CourseListComponent,
     CourseItemComponent,
+    BreadcrumbsComponent,
   ],
   imports: [ // import Angular's modules
     BrowserModule,
