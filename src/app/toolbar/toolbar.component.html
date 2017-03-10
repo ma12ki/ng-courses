@@ -1,14 +1,14 @@
 <div class="toolbar pad" fxLayout="row" fxLayoutAlign="center center">
-  <md-input-container>
-    <input mdInput placeholder="name or date" />
-  </md-input-container>
-  <div>
-    <button md-icon-button><md-icon>search</md-icon></button>
-  </div>
+    <md-input-container>
+        <input mdInput placeholder="name or date" [(ngModel)]="searchTerm" />
+    </md-input-container>
+    <div>
+        <button md-icon-button (click)="search()"><md-icon>search</md-icon></button>
+    </div>
 
-  <i fxFlex="grow"></i>
+    <i fxFlex="grow"></i>
 
-  <div>
-    <button md-button><md-icon>add</md-icon>Add course</button>
-  </div>
+    <div>
+        <button md-button><md-icon>add</md-icon>Add course</button>
+    </div>
 </div>
