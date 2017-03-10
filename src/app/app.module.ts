@@ -40,6 +40,8 @@ import { LoginComponent } from './login';
 
 import { CoursesService } from './courses/courses.service';
 
+import { CourseDurationPipe } from './courses/course-duration.pipe';
+
 import '../styles/styles.scss';
 import '../styles/headings.css';
 
@@ -71,6 +73,7 @@ type StoreType = {
     CourseItemComponent,
     BreadcrumbsComponent,
     LoginComponent,
+    CourseDurationPipe,
   ],
   imports: [ // import Angular's modules
     BrowserModule,
