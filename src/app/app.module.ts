@@ -37,6 +37,8 @@ import { CourseItemComponent } from './course-item';
 import { BreadcrumbsComponent } from './breadcrumbs';
 import { LoginComponent } from './login';
 
+import { CoursesService } from './courses/courses.service';
+
 import '../styles/styles.scss';
 import '../styles/headings.css';
 
@@ -80,6 +82,7 @@ type StoreType = {
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
     APP_PROVIDERS,
+    CoursesService,
   ]
 })
 export class AppModule {

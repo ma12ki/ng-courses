@@ -1,4 +1,7 @@
 <div fxLayout="column" fxLayoutAlign="stretch" class="courses-container">
-  <c-toolbar fxFlex="nogrow"></c-toolbar>
-  <c-course-list fxFlex="grow"></c-course-list>
+    <c-toolbar fxFlex="nogrow"></c-toolbar>
+    <c-course-list fxFlex="grow"></c-course-list>
+    <div>
+        {{ courses | async | json }}
+    </div>
 </div>
