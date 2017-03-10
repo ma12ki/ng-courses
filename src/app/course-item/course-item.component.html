@@ -1,11 +1,13 @@
 <md-list-item>
-  <header md-line fxLayout="row" fxLayoutAlign="center center">
-    <h3 class="title">some course</h3>
-    <p class="length"><md-icon class="length-icon">access_time</md-icon>1h 20m</p>
-    <i fxFlex="grow"></i>
-    <p class="date"><md-icon class="date-icon">date_range</md-icon>04.03.2017</p>
-  </header>
-  <p md-line>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus purus est, pellentesque a porttitor id, porttitor at velit. Morbi hendrerit urna vel rhoncus mattis. Nullam nec purus urna. Curabitur nec velit ut nunc interdum maximus. Nunc sit amet mauris id massa eleifend volutpat ac sed nisl. Integer quis blandit mauris.</p>
-  <button md-icon-button><md-icon>edit</md-icon></button>
-  <button md-icon-button><md-icon>delete</md-icon></button>
+    <header md-line fxLayout="row" fxLayoutAlign="center center">
+        <h3 class="title">{{ course.title }}</h3>
+        <p class="length">
+            <md-icon class="length-icon">access_time</md-icon>{{ course.durationMinutes | amDuration:'minutes' }}</p>
+        <i fxFlex="grow"></i>
+        <p class="date">
+            <md-icon class="date-icon">date_range</md-icon>{{ course.dateCreated | amDateFormat:'DD.MM.YYYY' }}</p>
+    </header>
+    <p md-line>{{ course.description }}</p>
+    <button md-icon-button><md-icon>edit</md-icon></button>
+    <button md-icon-button><md-icon>delete</md-icon></button>
 </md-list-item>

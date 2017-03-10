@@ -16,6 +16,7 @@ import {
 } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from '@angular/material';
+import { MomentModule } from 'angular2-moment';
 import 'hammerjs';
 
 /*
@@ -78,6 +79,7 @@ type StoreType = {
     RouterModule.forRoot(ROUTES, { preloadingStrategy: PreloadAllModules }),
     FlexLayoutModule.forRoot(),
     MaterialModule.forRoot(),
+    MomentModule,
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
