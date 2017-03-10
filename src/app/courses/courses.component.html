@@ -1,4 +1,4 @@
 <div fxLayout="column" fxLayoutAlign="stretch" class="courses-container">
     <c-toolbar fxFlex="nogrow"></c-toolbar>
-    <c-course-list fxFlex="grow" [courses]="courses | async"></c-course-list>
+    <c-course-list fxFlex="grow" [courses]="courses | async" (deleteCourse)="deleteCourse($event)"></c-course-list>
 </div>

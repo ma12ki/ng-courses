@@ -2,6 +2,8 @@ import {
   Component,
   OnInit,
   Input,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 
 import { ICourse } from './../entities/course';
@@ -13,4 +15,9 @@ import { ICourse } from './../entities/course';
 })
 export class CourseItemComponent {
   @Input() public course: ICourse;
+  @Output() public deleteCourse = new EventEmitter<number>();
+
+  public onDelete(): void {
+    this.deleteCourse.emit(this.course.id);
+  }
 }

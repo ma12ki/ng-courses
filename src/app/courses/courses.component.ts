@@ -22,4 +22,8 @@ export class CoursesComponent implements OnInit {
   public ngOnInit() {
     this.courses = this.coursesService.getCourses();
   }
+
+  public deleteCourse(courseId: number) {
+    console.log(`delete called for courseId ${courseId}`);
+  }
 }
