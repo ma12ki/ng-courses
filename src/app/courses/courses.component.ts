@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs/Observable';
+import 'rxjs';
 import {
   Component,
   OnInit
@@ -19,11 +20,15 @@ export class CoursesComponent implements OnInit {
     private coursesService: CoursesService,
   ) { }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
+    this.fetchCourses();
+  }
+
+  public fetchCourses(): void {
     this.courses = this.coursesService.getCourses();
   }
 
-  public deleteCourse(courseId: number) {
-    console.log(`delete called for courseId ${courseId}`);
+  public deleteCourse(courseId: number): void {
+    this.coursesService.deleteCourse(courseId);
   }
 }
