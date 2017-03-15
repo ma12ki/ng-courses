@@ -1,38 +1,58 @@
-import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs';
+import 'rxjs';
 import * as faker from 'Faker';
 
 import { ICourse, Course } from './../entities/course';
 
+interface ICourseOperation extends Function {
+  (courses: ICourse[]): ICourse[];
+}
+
 @Injectable()
 export class CoursesService {
-  private courses = this.generateCourses();
+  private courses: Observable<ICourse[]>;
+  private updates: BehaviorSubject<any> = new BehaviorSubject<any>((i) => i);
+
+  constructor() {
+    const initialCourses = this.generateCourses();
+
+    this.courses = this.updates
+      .scan((courses: ICourse[], operation: ICourseOperation) => {
+        return operation(courses);
+      }, initialCourses)
+      .publishReplay(1)
+      .refCount();
+  }
 
   public getCourses(): Observable<ICourse[]> {
-    return Observable.of(this.courses);
+    return this.courses;
   }
 
-  public createCourse(course): Observable<ICourse> {
-    return Observable.of(new Course());
-  }
-
-  public getCourseById(id: number): Observable<ICourse> {
-    return Observable.of(this.courses.find((course) => course.id === id));
-  }
-
-  public updateCourse(course: ICourse): Observable<ICourse> {
-    this.courses = this.courses.map((currentCourse) => {
-      if (currentCourse.id === course.id) {
-        currentCourse = course;
-      }
-      return currentCourse;
+  public addCourse(course): void {
+    this.updates.next((courses: ICourse[]) => {
+      return courses.concat(new Course());
     });
-    return Observable.of(course);
   }
 
-  public deleteCourse(id: number): Observable<void> {
-    this.courses = this.courses.filter((course) => course.id !== id );
-    return Observable.of(null);
+  public udpdateCourse(course: ICourse): void {
+    this.updates.next((courses: ICourse[]) => {
+      return courses.map((currentCourse: ICourse) => {
+        if (currentCourse.id === course.id) {
+          currentCourse = course;
+        }
+        return course;
+      });
+    });
+  }
+
+  public deleteCourse(id: number): void {
+    this.updates.next((courses: ICourse[]) => {
+      return courses.filter((course) => {
+        return course.id !== id;
+      });
+    });
   }
 
   private generateCourses(): ICourse[] {
