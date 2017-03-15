@@ -6,8 +6,33 @@ import { ICourse, Course } from './../entities/course';
 
 @Injectable()
 export class CoursesService {
+  private courses = this.generateCourses();
+
   public getCourses(): Observable<ICourse[]> {
-    return Observable.of(this.generateCourses());
+    return Observable.of(this.courses);
+  }
+
+  public createCourse(course): Observable<ICourse> {
+    return Observable.of(new Course());
+  }
+
+  public getCourseById(id: number): Observable<ICourse> {
+    return Observable.of(this.courses.find((course) => course.id === id));
+  }
+
+  public updateCourse(course: ICourse): Observable<ICourse> {
+    this.courses = this.courses.map((currentCourse) => {
+      if (currentCourse.id === course.id) {
+        currentCourse = course;
+      }
+      return currentCourse;
+    });
+    return Observable.of(course);
+  }
+
+  public deleteCourse(id: number): Observable<void> {
+    this.courses = this.courses.filter((course) => course.id !== id );
+    return Observable.of(null);
   }
 
   private generateCourses(): ICourse[] {
