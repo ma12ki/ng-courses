@@ -4,9 +4,11 @@ import {
   Component,
   OnInit
 } from '@angular/core';
+import { MdDialog } from '@angular/material';
 
 import { CoursesService } from './courses.service';
 import { ICourse } from './../entities/course';
+import { CourseDeleteModalComponent } from './course-delete-modal/course-delete-modal.component';
 
 @Component({
   selector: 'c-courses',
@@ -18,6 +20,7 @@ export class CoursesComponent implements OnInit {
 
   constructor(
     private coursesService: CoursesService,
+    private dialog: MdDialog,
   ) { }
 
   public ngOnInit(): void {
@@ -29,6 +32,11 @@ export class CoursesComponent implements OnInit {
   }
 
   public deleteCourse(courseId: number): void {
-    this.coursesService.deleteCourse(courseId);
+    const dialogRef = this.dialog.open(CourseDeleteModalComponent);
+    dialogRef.afterClosed()
+      .filter((result) => result)
+      .subscribe(() => {
+        this.coursesService.deleteCourse(courseId);
+      });
   }
 }

@@ -32,6 +32,9 @@ import { NoContentComponent } from './no-content';
 import { HeaderComponent } from './header';
 import { FooterComponent } from './footer';
 import { CoursesComponent } from './courses';
+import {
+  CourseDeleteModalComponent
+} from './courses/course-delete-modal/course-delete-modal.component';
 import { ToolbarComponent } from './toolbar';
 import { CourseListComponent } from './course-list';
 import { CourseItemComponent } from './course-item';
@@ -68,12 +71,16 @@ type StoreType = {
     HeaderComponent,
     FooterComponent,
     CoursesComponent,
+    CourseDeleteModalComponent,
     ToolbarComponent,
     CourseListComponent,
     CourseItemComponent,
     BreadcrumbsComponent,
     LoginComponent,
     CourseDurationPipe,
+  ],
+  entryComponents: [
+    CourseDeleteModalComponent,
   ],
   imports: [ // import Angular's modules
     BrowserModule,
