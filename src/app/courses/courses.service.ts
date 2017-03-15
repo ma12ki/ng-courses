@@ -30,6 +30,14 @@ export class CoursesService {
     return this.courses;
   }
 
+  public getCourseById(id: number): Observable<ICourse> {
+    return this.courses.flatMap((courses: ICourse[]) => {
+      return Observable.of(courses.find((course: ICourse) => {
+        return course.id === id;
+      }));
+    });
+  }
+
   public addCourse(course): void {
     this.updates.next((courses: ICourse[]) => {
       return courses.concat(new Course());
