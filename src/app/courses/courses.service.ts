@@ -44,7 +44,7 @@ export class CoursesService {
     });
   }
 
-  public udpdateCourse(course: ICourse): void {
+  public updateCourse(course: ICourse): void {
     this.updates.next((courses: ICourse[]) => {
       return courses.map((currentCourse: ICourse) => {
         if (currentCourse.id === course.id) {
