@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 import { NoContentComponent } from './no-content';
 import { CoursesComponent } from './courses';
-import { LoginComponent } from './login';
+import { LoginComponent } from './auth/login';
 
 import { DataResolver } from './app.resolver';
 

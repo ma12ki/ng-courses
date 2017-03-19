@@ -39,7 +39,7 @@ import { ToolbarComponent } from './toolbar';
 import { CourseListComponent } from './course-list';
 import { CourseItemComponent } from './course-item';
 import { BreadcrumbsComponent } from './breadcrumbs';
-import { LoginComponent } from './login';
+import { LoginComponent } from './auth/login';
 
 import { CoursesService } from './courses/courses.service';
 

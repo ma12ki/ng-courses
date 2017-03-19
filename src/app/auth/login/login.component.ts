@@ -5,7 +5,7 @@ import {
 
 @Component({
   selector: 'c-login',
-  // styleUrls: [ './login.component.scss' ],
+  styleUrls: [ './login.component.scss' ],
   templateUrl: './login.component.html'
 })
 export class LoginComponent implements OnInit {
