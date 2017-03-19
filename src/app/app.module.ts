@@ -41,6 +41,7 @@ import { CourseItemComponent } from './course-item';
 import { BreadcrumbsComponent } from './breadcrumbs';
 import { LoginComponent } from './auth/login';
 
+import { AuthService } from './auth/auth.service';
 import { CoursesService } from './courses/courses.service';
 
 import { CourseDurationPipe } from './courses/course-duration.pipe';
@@ -95,6 +96,7 @@ type StoreType = {
     ENV_PROVIDERS,
     APP_PROVIDERS,
     CoursesService,
+    AuthService,
   ]
 })
 export class AppModule {
