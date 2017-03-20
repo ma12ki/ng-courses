@@ -1,4 +1,3 @@
-import { CoreModule } from './core/core.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -20,6 +19,8 @@ import { MaterialModule } from '@angular/material';
 import { MomentModule } from 'angular2-moment';
 import 'hammerjs';
 
+import { CoreModule } from './core/core.module';
+import { AuthModule } from './auth/auth.module';
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -70,7 +71,6 @@ type StoreType = {
     ToolbarComponent,
     CourseListComponent,
     CourseItemComponent,
-    LoginComponent,
     CourseDurationPipe,
   ],
   entryComponents: [
@@ -81,13 +81,13 @@ type StoreType = {
     HttpModule,
     RouterModule.forRoot(ROUTES, { preloadingStrategy: PreloadAllModules }),
     CoreModule,
+    AuthModule,
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
     APP_PROVIDERS,
     CoursesService,
-    AuthService,
-  ]
+  ],
 })
 export class AppModule {
 
