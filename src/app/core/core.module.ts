@@ -9,7 +9,8 @@ import { MomentModule } from 'angular2-moment';
 import { AuthService } from './auth/auth.service';
 import { FooterComponent } from './footer';
 import { HeaderComponent } from './header';
-import { BreadcrumbsComponent } from './breadcrumbs/';
+import { BreadcrumbsComponent } from './breadcrumbs';
+import { NavComponent } from './nav';
 import { NoContentComponent } from './no-content';
 
 @NgModule({
@@ -25,6 +26,7 @@ import { NoContentComponent } from './no-content';
     FooterComponent,
     HeaderComponent,
     BreadcrumbsComponent,
+    NavComponent,
     NoContentComponent,
   ],
   providers: [

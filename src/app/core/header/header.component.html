@@ -3,13 +3,6 @@
     <h2>ng-courses</h2>
     <c-breadcrumbs *ngIf="isUserAuthenticated$ | async"></c-breadcrumbs>
     <span class="spacer"></span>
-    <aside *ngIf="isUserAuthenticated$ | async">
-        <span>hello, meh</span>
-        <br />
-        <button md-button (click)="logout()"><md-icon>exit_to_app</md-icon>log out</button>
-    </aside>
-    <aside *ngIf="!(isUserAuthenticated$ | async)">
-        <a routerLink="login" routerLinkActive="active">log in</a>
-        <a routerLink="/" routerLinkActive="active">home</a>
-    </aside>
+    <span *ngIf="isUserAuthenticated$ | async">hello, meh</span>
+    <c-nav></c-nav>
 </md-toolbar>
