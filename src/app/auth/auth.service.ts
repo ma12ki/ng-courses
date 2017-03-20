@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import 'rxjs';
 import * as faker from 'Faker';
 
@@ -11,7 +11,7 @@ export class AuthService {
   private static TOKEN_STORAGE_KEY = 'AUTH_TOKEN';
   private static USER_STORAGE_KEY = 'AUTH_USER';
   private hasToken: boolean;
-  private hasToken$: Subject<boolean> = new Subject<boolean>();
+  private hasToken$: Subject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor() {
     this.hasToken = !!localStorage.getItem(AuthService.TOKEN_STORAGE_KEY);
