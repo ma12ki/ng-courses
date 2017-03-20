@@ -1,3 +1,4 @@
+import { CoreModule } from './core/core.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -28,9 +29,6 @@ import { ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
-import { NoContentComponent } from './no-content';
-import { HeaderComponent } from './header';
-import { FooterComponent } from './footer';
 import { CoursesComponent } from './courses';
 import {
   CourseDeleteModalComponent
@@ -38,7 +36,6 @@ import {
 import { ToolbarComponent } from './toolbar';
 import { CourseListComponent } from './course-list';
 import { CourseItemComponent } from './course-item';
-import { BreadcrumbsComponent } from './breadcrumbs';
 import { LoginComponent } from './auth/login';
 
 import { AuthService } from './auth/auth.service';
@@ -68,15 +65,11 @@ type StoreType = {
   bootstrap: [ AppComponent ],
   declarations: [
     AppComponent,
-    NoContentComponent,
-    HeaderComponent,
-    FooterComponent,
     CoursesComponent,
     CourseDeleteModalComponent,
     ToolbarComponent,
     CourseListComponent,
     CourseItemComponent,
-    BreadcrumbsComponent,
     LoginComponent,
     CourseDurationPipe,
   ],
@@ -85,12 +78,9 @@ type StoreType = {
   ],
   imports: [ // import Angular's modules
     BrowserModule,
-    FormsModule,
     HttpModule,
     RouterModule.forRoot(ROUTES, { preloadingStrategy: PreloadAllModules }),
-    FlexLayoutModule.forRoot(),
-    MaterialModule.forRoot(),
-    MomentModule,
+    CoreModule,
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
