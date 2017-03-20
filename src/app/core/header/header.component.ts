@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'c-header',

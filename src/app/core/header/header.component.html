@@ -9,7 +9,7 @@
         <button md-button (click)="logout()"><md-icon>exit_to_app</md-icon>log out</button>
     </aside>
     <aside *ngIf="!(isUserAuthenticated$ | async)">
-        <a routerLink="/login" routerLinkActive="active">log in</a>
+        <a routerLink="login" routerLinkActive="active">log in</a>
         <a routerLink="/" routerLinkActive="active">home</a>
     </aside>
 </md-toolbar>

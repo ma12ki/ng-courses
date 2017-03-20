@@ -6,6 +6,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from '@angular/material';
 import { MomentModule } from 'angular2-moment';
 
+import { AuthService } from './auth/auth.service';
 import { FooterComponent } from './footer';
 import { HeaderComponent } from './header';
 import { BreadcrumbsComponent } from './breadcrumbs/';
@@ -25,6 +26,9 @@ import { NoContentComponent } from './no-content';
     HeaderComponent,
     BreadcrumbsComponent,
     NoContentComponent,
+  ],
+  providers: [
+    AuthService,
   ],
   exports: [
     CommonModule,

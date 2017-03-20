@@ -19,8 +19,9 @@ import { MaterialModule } from '@angular/material';
 import { MomentModule } from 'angular2-moment';
 import 'hammerjs';
 
+import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
-import { AuthModule } from './auth/auth.module';
+
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -37,7 +38,6 @@ import {
 import { ToolbarComponent } from './toolbar';
 import { CourseListComponent } from './course-list';
 import { CourseItemComponent } from './course-item';
-import { LoginComponent } from './auth/login';
 
 import { AuthService } from './auth/auth.service';
 import { CoursesService } from './courses/courses.service';
@@ -79,9 +79,9 @@ type StoreType = {
   imports: [ // import Angular's modules
     BrowserModule,
     HttpModule,
-    RouterModule.forRoot(ROUTES, { preloadingStrategy: PreloadAllModules }),
+    RouterModule.forRoot(ROUTES),
+    SharedModule,
     CoreModule,
-    AuthModule,
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,

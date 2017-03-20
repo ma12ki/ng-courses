@@ -4,7 +4,7 @@ import { Subject, BehaviorSubject } from 'rxjs';
 import 'rxjs';
 import * as faker from 'Faker';
 
-import { IUser } from '../entities/user';
+import { IUser } from '../../entities/user';
 
 @Injectable()
 export class AuthService {

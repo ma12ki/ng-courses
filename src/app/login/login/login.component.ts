@@ -3,7 +3,7 @@ import {
   OnInit
 } from '@angular/core';
 
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../core/auth/auth.service';
 
 @Component({
   selector: 'c-login',
