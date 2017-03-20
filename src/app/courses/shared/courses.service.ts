@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import 'rxjs';
 import * as faker from 'Faker';
 
-import { ICourse, Course } from './../entities/course';
+import { ICourse, Course } from './course.entity';
 
 interface ICourseOperation extends Function {
   (courses: ICourse[]): ICourse[];

@@ -6,7 +6,7 @@ import {
   EventEmitter,
 } from '@angular/core';
 
-import { ICourse } from './../entities/course';
+import { ICourse } from '../shared/course.entity';
 
 @Component({
   selector: 'c-course-list',

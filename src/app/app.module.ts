@@ -1,5 +1,4 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {
   NgModule,
@@ -14,9 +13,6 @@ import {
   RouterModule,
   PreloadAllModules
 } from '@angular/router';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { MaterialModule } from '@angular/material';
-import { MomentModule } from 'angular2-moment';
 import 'hammerjs';
 
 import { SharedModule } from './shared/shared.module';
@@ -31,18 +27,6 @@ import { ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
-import { CoursesComponent } from './courses';
-import {
-  CourseDeleteModalComponent
-} from './courses/course-delete-modal/course-delete-modal.component';
-import { ToolbarComponent } from './toolbar';
-import { CourseListComponent } from './course-list';
-import { CourseItemComponent } from './course-item';
-
-import { AuthService } from './auth/auth.service';
-import { CoursesService } from './courses/courses.service';
-
-import { CourseDurationPipe } from './courses/course-duration.pipe';
 
 import '../styles/styles.scss';
 import '../styles/headings.css';
@@ -66,27 +50,17 @@ type StoreType = {
   bootstrap: [ AppComponent ],
   declarations: [
     AppComponent,
-    CoursesComponent,
-    CourseDeleteModalComponent,
-    ToolbarComponent,
-    CourseListComponent,
-    CourseItemComponent,
-    CourseDurationPipe,
-  ],
-  entryComponents: [
-    CourseDeleteModalComponent,
   ],
   imports: [ // import Angular's modules
     BrowserModule,
     HttpModule,
     RouterModule.forRoot(ROUTES),
-    SharedModule,
     CoreModule,
+    SharedModule,
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
     APP_PROVIDERS,
-    CoursesService,
   ],
 })
 export class AppModule {

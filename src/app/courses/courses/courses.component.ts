@@ -6,9 +6,9 @@ import {
 } from '@angular/core';
 import { MdDialog } from '@angular/material';
 
-import { CoursesService } from './courses.service';
-import { ICourse } from './../entities/course';
-import { CourseDeleteModalComponent } from './course-delete-modal/course-delete-modal.component';
+import { CoursesService } from '../shared/courses.service';
+import { ICourse } from '../shared/course.entity';
+import { CourseDeleteModalComponent } from '../course-delete-modal/';
 
 @Component({
   selector: 'c-courses',
