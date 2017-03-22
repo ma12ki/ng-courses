@@ -56,7 +56,7 @@ type StoreType = {
     HttpModule,
     RouterModule.forRoot(ROUTES),
     CoreModule,
-    SharedModule,
+    SharedModule.forRoot(),
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
