@@ -4,7 +4,8 @@
 import {
   Component,
   OnInit,
-  ViewEncapsulation
+  ViewEncapsulation,
+  NgZone,
 } from '@angular/core';
 import { AppState } from './app.service';
 
@@ -22,8 +23,19 @@ import { AppState } from './app.service';
 })
 export class AppComponent implements OnInit {
   constructor(
-    public appState: AppState
-  ) {}
+    public appState: AppState,
+    private ngZone: NgZone,
+  ) {
+    const timerName = 'ngZoneTimer';
+    ngZone.onUnstable.subscribe(() => {
+      console.info('onUnstable');
+      console.time(timerName);
+    });
+    ngZone.onStable.subscribe(() => {
+      console.info('onStable');
+      console.timeEnd(timerName);
+    });
+  }
 
   public ngOnInit() {
     console.log('AppComponent init');
