@@ -5,6 +5,7 @@ import {
 } from '@angular/core';
 
 import { AuthService } from '../../core/auth/auth.service';
+import { LoaderService } from './../../shared/loader/loader.service';
 
 @Component({
   selector: 'c-login',
@@ -15,6 +16,7 @@ import { AuthService } from '../../core/auth/auth.service';
 export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
+    private loaderService: LoaderService,
   ) {}
 
   public ngOnInit() {
@@ -22,6 +24,8 @@ export class LoginComponent implements OnInit {
   }
 
   public login() {
-    this.authService.login('lol', 'mao');
+    this.loaderService.show();
+    this.authService.login('meh', 'w/e')
+      .subscribe(null, null, () => this.loaderService.hide());
   }
 }
