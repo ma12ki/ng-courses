@@ -5,6 +5,7 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
+import { IUser } from './../../entities/user';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
@@ -15,11 +16,13 @@ import { AuthService } from '../auth/auth.service';
 })
 export class HeaderComponent implements OnInit {
   public isUserAuthenticated$: Observable<boolean>;
+  public userInfo$: Observable<IUser>;
 
   constructor(
     private authService: AuthService,
   ) {
     this.isUserAuthenticated$ = authService.isAuthenticated$();
+    this.userInfo$ = authService.userInfo$;
   }
 
   public ngOnInit() {
