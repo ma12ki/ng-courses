@@ -6,6 +6,7 @@ import {
   OnInit,
   ViewEncapsulation,
   NgZone,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { AppState } from './app.service';
 
@@ -20,6 +21,7 @@ import { AppState } from './app.service';
     './app.component.scss'
   ],
   templateUrl: './app.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
   constructor(

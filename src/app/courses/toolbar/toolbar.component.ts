@@ -1,12 +1,14 @@
 import {
   Component,
-  OnInit
+  OnInit,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 
 @Component({
   selector: 'c-toolbar',
   styleUrls: [ './toolbar.component.scss' ],
-  templateUrl: './toolbar.component.html'
+  templateUrl: './toolbar.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToolbarComponent implements OnInit {
   public searchTerm: string;

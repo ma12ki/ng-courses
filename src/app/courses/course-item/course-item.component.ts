@@ -4,6 +4,7 @@ import {
   Input,
   Output,
   EventEmitter,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 
 import { ICourse } from '../shared/course.entity';
@@ -11,7 +12,8 @@ import { ICourse } from '../shared/course.entity';
 @Component({
   selector: 'c-course-item',
   styleUrls: [ './course-item.component.scss' ],
-  templateUrl: './course-item.component.html'
+  templateUrl: './course-item.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CourseItemComponent {
   @Input() public course: ICourse;

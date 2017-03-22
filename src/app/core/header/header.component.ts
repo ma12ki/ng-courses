@@ -1,6 +1,7 @@
 import {
   Component,
-  OnInit
+  OnInit,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
@@ -9,7 +10,8 @@ import { AuthService } from '../auth/auth.service';
 @Component({
   selector: 'c-header',
   styleUrls: [ './header.component.scss' ],
-  templateUrl: './header.component.html'
+  templateUrl: './header.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit {
   public isUserAuthenticated$: Observable<boolean>;

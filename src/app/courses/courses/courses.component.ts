@@ -2,7 +2,8 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs';
 import {
   Component,
-  OnInit
+  OnInit,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { MdDialog } from '@angular/material';
 
@@ -13,7 +14,8 @@ import { CourseDeleteModalComponent } from '../course-delete-modal/';
 @Component({
   selector: 'c-courses',
   styleUrls: [ './courses.component.scss' ],
-  templateUrl: './courses.component.html'
+  templateUrl: './courses.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CoursesComponent implements OnInit {
   public courses: Observable<ICourse[]>;
