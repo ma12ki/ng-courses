@@ -55,12 +55,16 @@ export class CoursesService {
     });
   }
 
-  public deleteCourse(id: number): void {
-    this.updates.next((courses: ICourse[]) => {
-      return courses.filter((course) => {
-        return course.id !== id;
+  public deleteCourse(id: number): Observable<null> {
+    return Observable.of(null)
+      .delay(1000)
+      .do(() => {
+        this.updates.next((courses: ICourse[]) => {
+          return courses.filter((course) => {
+            return course.id !== id;
+          });
+        });
       });
-    });
   }
 
   private generateCourses(): ICourse[] {

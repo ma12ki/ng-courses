@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { MdDialog } from '@angular/material';
 
+import { LoaderService } from './../../shared/loader/loader.service';
 import { CoursesService } from '../shared/courses.service';
 import { ICourse } from '../shared/course.entity';
 import { CourseDeleteModalComponent } from '../course-delete-modal/';
@@ -22,6 +23,7 @@ export class CoursesComponent implements OnInit {
 
   constructor(
     private coursesService: CoursesService,
+    private loaderService: LoaderService,
     private dialog: MdDialog,
   ) { }
 
@@ -37,8 +39,9 @@ export class CoursesComponent implements OnInit {
     const dialogRef = this.dialog.open(CourseDeleteModalComponent);
     dialogRef.afterClosed()
       .filter((result) => result)
-      .subscribe(() => {
-        this.coursesService.deleteCourse(courseId);
-      });
+      .do(() => this.loaderService.show())
+      .switchMap(() => this.coursesService.deleteCourse(courseId) )
+      .do(() => this.loaderService.hide())
+      .subscribe();
   }
 }
