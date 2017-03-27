@@ -33,7 +33,9 @@ export class NavComponent implements OnInit {
   public logout() {
     this.loaderService.show();
     this.authService.logout()
-      .subscribe(null, null, () => this.loaderService.hide());
+      .do(() => this.loaderService.hide())
+      .do(() => this.router.navigate(['/login']))
+      .subscribe();
   }
 
   public navigate(link: string) {
