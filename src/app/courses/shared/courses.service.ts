@@ -12,13 +12,13 @@ interface ICourseOperation extends Function {
 
 @Injectable()
 export class CoursesService {
-  private courses: Observable<ICourse[]>;
-  private updates: BehaviorSubject<any> = new BehaviorSubject<any>((i) => i);
+  private _courses$: Observable<ICourse[]>;
+  private _updates$: BehaviorSubject<any> = new BehaviorSubject<any>((i) => i);
 
   constructor() {
     const initialCourses = this.generateCourses();
 
-    this.courses = this.updates
+    this._courses$ = this._updates$
       .scan((courses: ICourse[], operation: ICourseOperation) => {
         return operation(courses);
       }, initialCourses)
@@ -26,12 +26,12 @@ export class CoursesService {
       .refCount();
   }
 
-  public getCourses(): Observable<ICourse[]> {
-    return this.courses;
+  public get courses$(): Observable<ICourse[]> {
+    return this._courses$;
   }
 
-  public getCourseById(id: number): Observable<ICourse> {
-    return this.courses.flatMap((courses: ICourse[]) => {
+  public getCourseById$(id: number): Observable<ICourse> {
+    return this._courses$.flatMap((courses: ICourse[]) => {
       return Observable.of(courses.find((course: ICourse) => {
         return course.id === id;
       }));
@@ -39,13 +39,13 @@ export class CoursesService {
   }
 
   public addCourse(course): void {
-    this.updates.next((courses: ICourse[]) => {
+    this._updates$.next((courses: ICourse[]) => {
       return courses.concat(new Course());
     });
   }
 
   public updateCourse(course: ICourse): void {
-    this.updates.next((courses: ICourse[]) => {
+    this._updates$.next((courses: ICourse[]) => {
       return courses.map((currentCourse: ICourse) => {
         if (currentCourse.id === course.id) {
           currentCourse = course;
@@ -55,11 +55,11 @@ export class CoursesService {
     });
   }
 
-  public deleteCourse(id: number): Observable<null> {
+  public deleteCourse$(id: number): Observable<null> {
     return Observable.of(null)
       .delay(1000)
       .do(() => {
-        this.updates.next((courses: ICourse[]) => {
+        this._updates$.next((courses: ICourse[]) => {
           return courses.filter((course) => {
             return course.id !== id;
           });

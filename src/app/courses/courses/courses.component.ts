@@ -19,7 +19,7 @@ import { CourseDeleteModalComponent } from '../course-delete-modal/';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CoursesComponent implements OnInit {
-  public courses: Observable<ICourse[]>;
+  public courses$: Observable<ICourse[]>;
 
   constructor(
     private coursesService: CoursesService,
@@ -32,7 +32,7 @@ export class CoursesComponent implements OnInit {
   }
 
   public fetchCourses(): void {
-    this.courses = this.coursesService.getCourses();
+    this.courses$ = this.coursesService.courses$;
   }
 
   public deleteCourse(courseId: number): void {
@@ -40,7 +40,7 @@ export class CoursesComponent implements OnInit {
     dialogRef.afterClosed()
       .filter((result) => result)
       .do(() => this.loaderService.show())
-      .switchMap(() => this.coursesService.deleteCourse(courseId) )
+      .switchMap(() => this.coursesService.deleteCourse$(courseId) )
       .do(() => this.loaderService.hide())
       .subscribe();
   }
