@@ -23,7 +23,7 @@ export class NavComponent implements OnInit {
     private authService: AuthService,
     private loaderService: LoaderService,
   ) {
-    this.isUserAuthenticated$ = authService.isAuthenticated$();
+    this.isUserAuthenticated$ = authService.isAuthenticated$;
   }
 
   public ngOnInit() {

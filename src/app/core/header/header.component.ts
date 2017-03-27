@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private authService: AuthService,
   ) {
-    this.isUserAuthenticated$ = authService.isAuthenticated$();
+    this.isUserAuthenticated$ = authService.isAuthenticated$;
     this.userInfo$ = authService.userInfo$;
   }
 

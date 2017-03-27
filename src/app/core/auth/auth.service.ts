@@ -20,11 +20,11 @@ export class AuthService {
     this._userInfo$.next(JSON.parse(localStorage.getItem(AuthService.USER_STORAGE_KEY)));
   }
 
-  public isAuthenticated(): boolean {
+  public get isAuthenticated(): boolean {
     return this._hasToken;
   }
 
-  public isAuthenticated$(): Observable<boolean> {
+  public get isAuthenticated$(): Observable<boolean> {
     return this._hasToken$;
   }
 
@@ -57,7 +57,7 @@ export class AuthService {
       });
   }
 
-  public getUserInfo(): IUser {
+  public get userInfo(): IUser {
     return JSON.parse(localStorage.getItem(AuthService.USER_STORAGE_KEY));
   }
 

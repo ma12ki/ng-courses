@@ -7,6 +7,7 @@ import { MaterialModule } from '@angular/material';
 import { MomentModule } from 'angular2-moment';
 
 import { AuthService } from './auth/auth.service';
+import { AuthGuardService } from './auth/auth-guard.service';
 import { FooterComponent } from './footer';
 import { HeaderComponent } from './header';
 import { BreadcrumbsComponent } from './breadcrumbs';
@@ -31,6 +32,7 @@ import { NoContentComponent } from './no-content';
   ],
   providers: [
     AuthService,
+    AuthGuardService,
   ],
   exports: [
     CommonModule,
