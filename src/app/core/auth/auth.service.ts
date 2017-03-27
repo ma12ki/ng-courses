@@ -10,22 +10,22 @@ import { IUser } from '../../entities/user';
 export class AuthService {
   private static TOKEN_STORAGE_KEY = 'AUTH_TOKEN';
   private static USER_STORAGE_KEY = 'AUTH_USER';
-  private hasToken: boolean;
-  private hasToken$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private _hasToken: boolean;
+  private _hasToken$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private _userInfo$: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(null);
 
   constructor() {
-    this.hasToken = !!localStorage.getItem(AuthService.TOKEN_STORAGE_KEY);
-    this.hasToken$.next(this.hasToken);
+    this._hasToken = !!localStorage.getItem(AuthService.TOKEN_STORAGE_KEY);
+    this._hasToken$.next(this._hasToken);
     this._userInfo$.next(JSON.parse(localStorage.getItem(AuthService.USER_STORAGE_KEY)));
   }
 
   public isAuthenticated(): boolean {
-    return this.hasToken;
+    return this._hasToken;
   }
 
   public isAuthenticated$(): Observable<boolean> {
-    return this.hasToken$;
+    return this._hasToken$;
   }
 
   public login(login: string, password: string): Observable<IUser> {
@@ -37,8 +37,8 @@ export class AuthService {
       .delay(1000)
       .do(() => console.info('successfully logged in!'))
       .do(() => {
-        this.hasToken = true;
-        this.hasToken$.next(this.hasToken);
+        this._hasToken = true;
+        this._hasToken$.next(this._hasToken);
         this._userInfo$.next(userInfo);
       });
   }
@@ -51,8 +51,8 @@ export class AuthService {
       .delay(1000)
       .do(() => console.info('successfully logged out!'))
       .do(() => {
-        this.hasToken = false;
-        this.hasToken$.next(this.hasToken);
+        this._hasToken = false;
+        this._hasToken$.next(this._hasToken);
         this._userInfo$.next(null);
       });
   }
