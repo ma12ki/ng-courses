@@ -3,6 +3,7 @@ import {
   OnInit,
   ChangeDetectionStrategy,
 } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { LoaderService } from './../../shared/loader/loader.service';
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private loaderService: LoaderService,
+    private router: Router,
   ) {}
 
   public ngOnInit() {
@@ -26,6 +28,8 @@ export class LoginComponent implements OnInit {
   public login() {
     this.loaderService.show();
     this.authService.login('meh', 'w/e')
-      .subscribe(null, null, () => this.loaderService.hide());
+      .do(() => this.loaderService.hide())
+      .do(() => this.router.navigate(['']))
+      .subscribe();
   }
 }
