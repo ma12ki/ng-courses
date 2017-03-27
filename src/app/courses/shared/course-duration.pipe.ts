@@ -1,6 +1,6 @@
 import { PipeTransform, Pipe } from '@angular/core';
 
-@Pipe({ name: 'courseDuration' })
+@Pipe({ name: 'cCourseDuration' })
 export class CourseDurationPipe implements PipeTransform {
   private static hourInMinutes = 60;
 
