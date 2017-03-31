@@ -1,7 +1,7 @@
 <md-list-item class="course-item" [ngClass]="{ 'top-rated': course.topRated }" [cHighlight]="course.dateCreated">
     <header md-line fxLayout="row" fxLayoutAlign="center center">
         <h3 class="title">
-          {{ course.title }}
+          {{ course.title | uppercase }}
           <md-icon *ngIf="course.topRated" class="top-rated-icon">star</md-icon>
         </h3>
         <p class="length">
