@@ -2,12 +2,14 @@ import { NgModule } from '@angular/core';
 
 import { SharedModule } from '../../shared/shared.module';
 
-import { CourseDurationPipe } from './course-duration.pipe';
 import { CoursesService } from './courses.service';
+import { CourseDurationPipe } from './course-duration.pipe';
+import { CourseHighlightDirective } from './course-highlight.directive';
 
 @NgModule({
   declarations: [
     CourseDurationPipe,
+    CourseHighlightDirective,
   ],
   providers: [
     CoursesService,
@@ -15,6 +17,7 @@ import { CoursesService } from './courses.service';
   exports: [
     SharedModule,
     CourseDurationPipe,
+    CourseHighlightDirective,
   ],
 })
 export class CoursesSharedModule { }

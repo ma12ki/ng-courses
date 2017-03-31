@@ -1,11 +1,12 @@
-<md-list-item>
+<md-list-item [cHighlight]="course.dateCreated" class="course-item">
     <header md-line fxLayout="row" fxLayoutAlign="center center">
         <h3 class="title">{{ course.title }}</h3>
         <p class="length">
             <md-icon class="length-icon">access_time</md-icon>{{ course.durationMinutes | cCourseDuration }}</p>
         <i fxFlex="grow"></i>
-        <p class="date">
-            <md-icon class="date-icon">date_range</md-icon>{{ course.dateCreated | amDateFormat:'DD.MM.YYYY' }}</p>
+        <p class="date" [title]="course.dateCreated | amTimeAgo">
+            <md-icon class="date-icon">date_range</md-icon>{{ course.dateCreated | amDateFormat:'DD.MM.YYYY' }}
+        </p>
     </header>
     <p md-line>{{ course.description }}</p>
     <button md-icon-button><md-icon>edit</md-icon></button>

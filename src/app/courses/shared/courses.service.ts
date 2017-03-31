@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs';
 import 'rxjs';
+import * as moment from 'moment';
 import * as faker from 'Faker';
 
 import { ICourse, Course } from './course.entity';
@@ -69,9 +70,21 @@ export class CoursesService {
 
   private generateCourses(): ICourse[] {
     const courses: ICourse[] = [];
-    const numberOfCourses: number = faker.random.number(7) + 3;
 
-    for (let i = 0; i < numberOfCourses; i++) {
+    courses.push(new Course(
+      'Fresh!',
+      moment().subtract(1, 'day').toDate(),
+    ));
+    courses.push(new Course(
+      'Upcoming!',
+      moment().add(5, 'days').toDate(),
+    ));
+    courses.push(new Course(
+      'Old!',
+      moment().subtract(20, 'days').toDate(),
+    ));
+
+    for (let i = 0; i < 3; i++) {
       courses.push(new Course());
     }
 
