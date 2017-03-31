@@ -1,8 +1,12 @@
-<md-list-item [cHighlight]="course.dateCreated" class="course-item">
+<md-list-item class="course-item" [ngClass]="{ 'top-rated': course.topRated }" [cHighlight]="course.dateCreated">
     <header md-line fxLayout="row" fxLayoutAlign="center center">
-        <h3 class="title">{{ course.title }}</h3>
+        <h3 class="title">
+          {{ course.title }}
+          <md-icon *ngIf="course.topRated" class="top-rated-icon">star</md-icon>
+        </h3>
         <p class="length">
-            <md-icon class="length-icon">access_time</md-icon>{{ course.durationMinutes | cCourseDuration }}</p>
+            <md-icon class="length-icon">access_time</md-icon>{{ course.durationMinutes | cCourseDuration }}
+        </p>
         <i fxFlex="grow"></i>
         <p class="date" [title]="course.dateCreated | amTimeAgo">
             <md-icon class="date-icon">date_range</md-icon>{{ course.dateCreated | amDateFormat:'DD.MM.YYYY' }}
