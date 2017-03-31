@@ -1,3 +1,9 @@
-<md-list>
+<md-list *ngIf="courses.length; else empty">
     <c-course-item *ngFor="let course of courses" [course]="course" (deleteCourse)="reemitDeleteCourse($event)"></c-course-item>
 </md-list>
+
+<ng-template #empty>
+  <div class="no-courses">
+    No courses for you <md-icon class="sad-face">mood_bad</md-icon>
+  </div>
+</ng-template>
