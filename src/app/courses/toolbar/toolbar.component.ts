@@ -2,6 +2,8 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 
 @Component({
@@ -11,6 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToolbarComponent implements OnInit {
+  @Output() public onSearch: EventEmitter<string> = new EventEmitter<string>();
   public searchTerm: string;
 
   public ngOnInit() {
@@ -19,5 +22,6 @@ export class ToolbarComponent implements OnInit {
 
   public search() {
     console.log(this.searchTerm);
+    this.onSearch.emit(this.searchTerm);
   }
 }
