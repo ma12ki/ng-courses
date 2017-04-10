@@ -101,7 +101,7 @@ export class CoursesService {
       return {
         id: courseDto.id,
         title: courseDto.title,
-        dateCreated: new Date(courseDto.dateCreated),
+        date: new Date(courseDto.dateCreated),
         durationMinutes: Math.ceil(courseDto.durationSeconds / 60),
         description: courseDto.description,
         topRated: courseDto.topRated,

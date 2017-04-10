@@ -1,4 +1,4 @@
 <div fxLayout="column" fxLayoutAlign="stretch" class="courses-container">
     <c-toolbar fxFlex="nogrow" (onSearch)="onSearch($event)"></c-toolbar>
-    <c-course-list fxFlex="grow" [courses]="courses$ | async | cOrderBy:'dateCreated'" (deleteCourse)="deleteCourse($event)"></c-course-list>
+    <c-course-list fxFlex="grow" [courses]="courses$ | async | cOrderBy:'date'" (deleteCourse)="deleteCourse($event)"></c-course-list>
 </div>

@@ -40,7 +40,7 @@ export class CoursesComponent implements OnInit {
     this.courses$ = this.coursesService.courses$
       .map((courses: ICourse[]) => {
         const twoWeeksAgo = moment().subtract(14, 'days');
-        return courses.filter((course) => moment(course.dateCreated).isAfter(twoWeeksAgo));
+        return courses.filter((course) => moment(course.date).isAfter(twoWeeksAgo));
       })
       .combineLatest(this.searchTerm$, (courses: ICourse[], searchTerm: string) => {
         return this.courseFindPipe.transform(courses, searchTerm);
