@@ -4,7 +4,8 @@ import {
   OnDestroy,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { Subscription } from 'rxjs/Subscription';
 
 import { ICourse } from '../shared/course.entity';
@@ -20,6 +21,7 @@ export class CourseEditComponent implements OnInit, OnDestroy {
   private _subscriptions: Subscription[] = [];
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
   ) {}
 
@@ -40,7 +42,7 @@ export class CourseEditComponent implements OnInit, OnDestroy {
   }
 
   public cancel(): void {
-    console.log('cancel: implement me!');
+    this.router.navigate(['']);
   }
 
 }
