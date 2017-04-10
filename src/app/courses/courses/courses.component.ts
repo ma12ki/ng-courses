@@ -7,6 +7,7 @@ import { MdDialog } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/Rx';
 import 'rxjs';
+import * as moment from 'moment';
 
 import { LoaderService } from './../../shared/loader/loader.service';
 import { CoursesService } from '../shared/courses.service';
@@ -37,6 +38,10 @@ export class CoursesComponent implements OnInit {
 
   public fetchCourses(): void {
     this.courses$ = this.coursesService.courses$
+      .map((courses: ICourse[]) => {
+        const twoWeeksAgo = moment().subtract(14, 'days');
+        return courses.filter((course) => moment(course.dateCreated).isAfter(twoWeeksAgo));
+      })
       .combineLatest(this.searchTerm$, (courses: ICourse[], searchTerm: string) => {
         return this.courseFindPipe.transform(courses, searchTerm);
       });

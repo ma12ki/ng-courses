@@ -80,8 +80,12 @@ export class CoursesService {
       moment().add(5, 'days').toDate(),
     ));
     courses.push(new Course(
-      'Old!',
-      moment().subtract(20, 'days').toDate(),
+      'Almost outdated!',
+      moment().subtract(13, 'days').toDate(),
+    ));
+    courses.push(new Course(
+      'Outdated!',
+      moment().subtract(15, 'days').toDate(),
     ));
 
     for (let i = 0; i < 3; i++) {
