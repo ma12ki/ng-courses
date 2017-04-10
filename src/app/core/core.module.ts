@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MomentModule } from 'angular2-moment';
 
 import { AuthService } from './auth/auth.service';
@@ -22,6 +23,7 @@ import { NoContentComponent } from './no-content';
     RouterModule,
     MaterialModule.forRoot(),
     FlexLayoutModule.forRoot(),
+    BrowserAnimationsModule,
     MomentModule,
   ],
   declarations: [
