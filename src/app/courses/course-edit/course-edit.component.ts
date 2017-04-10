@@ -35,4 +35,12 @@ export class CourseEditComponent implements OnInit, OnDestroy {
     this._subscriptions.forEach((s) => s.unsubscribe());
   }
 
+  public save(): void {
+    console.log('save: implement me!');
+  }
+
+  public cancel(): void {
+    console.log('cancel: implement me!');
+  }
+
 }
