@@ -5,6 +5,7 @@ import 'rxjs';
 import * as moment from 'moment';
 import * as faker from 'Faker';
 
+import { ICourseDto, CourseDto } from './course-dto.entity';
 import { ICourse, Course } from './course.entity';
 
 interface ICourseOperation extends Function {
@@ -17,7 +18,7 @@ export class CoursesService {
   private _updates$: BehaviorSubject<any> = new BehaviorSubject<any>((i) => i);
 
   constructor() {
-    const initialCourses = this.generateCourses();
+    const initialCourses: ICourse[] = this.mapDtoToModel(this.generateCourses());
 
     this._courses$ = this._updates$
       .scan((courses: ICourse[], operation: ICourseOperation) => {
@@ -68,30 +69,43 @@ export class CoursesService {
       });
   }
 
-  private generateCourses(): ICourse[] {
-    const courses: ICourse[] = [];
+  private generateCourses(): ICourseDto[] {
+    const courses: ICourseDto[] = [];
 
-    courses.push(new Course(
+    courses.push(new CourseDto(
       'Fresh!',
-      moment().subtract(1, 'day').toDate(),
+      moment().subtract(1, 'day').toDate().toISOString(),
     ));
-    courses.push(new Course(
+    courses.push(new CourseDto(
       'Upcoming!',
-      moment().add(5, 'days').toDate(),
+      moment().add(5, 'days').toDate().toISOString(),
     ));
-    courses.push(new Course(
+    courses.push(new CourseDto(
       'Almost outdated!',
-      moment().subtract(13, 'days').toDate(),
+      moment().subtract(13, 'days').toDate().toISOString(),
     ));
-    courses.push(new Course(
+    courses.push(new CourseDto(
       'Outdated!',
-      moment().subtract(15, 'days').toDate(),
+      moment().subtract(15, 'days').toDate().toISOString(),
     ));
 
     for (let i = 0; i < 3; i++) {
-      courses.push(new Course());
+      courses.push(new CourseDto());
     }
 
     return courses;
+  }
+
+  private mapDtoToModel(courses: ICourseDto[]): ICourse[] {
+    return courses.map((courseDto) => {
+      return {
+        id: courseDto.id,
+        title: courseDto.title,
+        dateCreated: new Date(courseDto.dateCreated),
+        durationMinutes: Math.ceil(courseDto.durationSeconds / 60),
+        description: courseDto.description,
+        topRated: courseDto.topRated,
+      };
+    });
   }
 }
