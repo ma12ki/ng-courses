@@ -7,7 +7,7 @@ export class LoaderService {
   private _show$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   public get show$(): Observable<boolean> {
-    return this._show$;
+    return this._show$.asObservable();
   }
 
   public show(): void {
