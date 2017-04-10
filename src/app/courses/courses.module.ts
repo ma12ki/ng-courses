@@ -7,6 +7,7 @@ import { CoursesComponent } from './courses';
 import { CourseListComponent } from './course-list';
 import { CourseItemComponent } from './course-item';
 import { CourseDeleteModalComponent } from './course-delete-modal';
+import { CourseEditComponent } from './course-edit/course-edit.component';
 import { ToolbarComponent } from './toolbar';
 
 @NgModule({
@@ -19,6 +20,7 @@ import { ToolbarComponent } from './toolbar';
     CourseListComponent,
     CourseItemComponent,
     CourseDeleteModalComponent,
+    CourseEditComponent,
     ToolbarComponent,
   ],
   entryComponents: [
