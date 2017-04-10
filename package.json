@@ -68,6 +68,7 @@
     "webpack": "webpack"
   },
   "dependencies": {
+    "@angular/animations": "^4.0.1",
     "@angular/common": "4.1.0-beta.0",
     "@angular/compiler": "4.1.0-beta.0",
     "@angular/core": "4.1.0-beta.0",
@@ -149,7 +150,7 @@
     "tslint": "~4.5.1",
     "tslint-loader": "^3.3.0",
     "typedoc": "^0.5.3",
-    "typescript": "~2.1.6",
+    "typescript": "^2.2.2",
     "url-loader": "^0.5.7",
     "webpack": "2.2.0",
     "webpack-dev-middleware": "^1.10.0",
