@@ -25,7 +25,7 @@ export class AuthService {
   }
 
   public get isAuthenticated$(): Observable<boolean> {
-    return this._hasToken$;
+    return this._hasToken$.asObservable();
   }
 
   public login(login: string, password: string): Observable<IUser> {
@@ -62,6 +62,6 @@ export class AuthService {
   }
 
   public get userInfo$(): Observable<IUser> {
-    return this._userInfo$;
+    return this._userInfo$.asObservable();
   }
 }
