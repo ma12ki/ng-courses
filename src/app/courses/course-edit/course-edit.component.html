@@ -1,1 +1,50 @@
-<p>It's alive!</p>
+<form fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start stretch">
+  <header class="form-title">New course</header>
+  <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center stretch">
+    <div fxFlex="2 2 40%" class="label-column">Title</div>
+    <div fxFlex="3 3 60%">
+      <md-input-container>
+        <input mdInput placeholder="">
+      </md-input-container>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center stretch">
+    <div fxFlex="2 2 40%" class="label-column">Description</div>
+    <div fxFlex="3 3 60%">
+      <md-input-container>
+        <textarea mdInput mdTextareaAutosize placeholder=""></textarea>
+      </md-input-container>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center stretch">
+    <div fxFlex="2 2 40%" class="label-column">Date</div>
+    <div fxFlex="3 3 60%">
+      <md-input-container>
+        <input mdInput type="date" placeholder="">
+      </md-input-container>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center stretch">
+    <div fxFlex="2 2 40%" class="label-column">Duration</div>
+    <div fxFlex="3 3 60%">
+      <md-input-container>
+        <input mdInput placeholder="">
+      </md-input-container>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center stretch">
+    <div fxFlex="2 2 40%" class="label-column">Authors</div>
+    <div fxFlex="3 3 60%">
+      <md-input-container>
+        <input mdInput placeholder="">
+      </md-input-container>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center stretch">
+    <div fxFlex="2 2 40%" class="label-column"></div>
+    <div fxFlex="3 3 60%">
+      <button md-button><md-icon>save</md-icon>Save</button>
+      <button md-button><md-icon>cancel</md-icon>Cancel</button>
+    </div>
+  </div>
+</form>

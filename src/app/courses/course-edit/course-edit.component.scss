@@ -1,37 +1,11 @@
-.title {
-  margin-right: 10px;
+.form-title {
+  text-align: center;
+  font-size: 24px;
+  padding: 10px;
 }
 
-.length {
-  font-size: 1em;
-
-  .length-icon {
-    font-size: 1em;
-    width: 1em;
-    height: 1em;
-    vertical-align: text-top;
-  }
-}
-
-.date {
-  font-size: 1em;
-
-  .date-icon {
-    font-size: 1em;
-    width: 1em;
-    height: 1em;
-    vertical-align: text-top;
-  }
-}
-
-.course-item {
-  padding-bottom: 20px;
-}
-
-.top-rated {
-  background-color: lightyellow;
-}
-
-.top-rated-icon {
-  vertical-align: text-bottom;
+.label-column {
+  text-align: right;
+  font-size: 16px;
+  padding-top: 20px;
 }

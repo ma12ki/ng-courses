@@ -1,11 +1,11 @@
 import {
   Component,
   OnInit,
-  Input,
-  Output,
-  EventEmitter,
+  OnDestroy,
   ChangeDetectionStrategy,
 } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 import { ICourse } from '../shared/course.entity';
 
@@ -15,6 +15,24 @@ import { ICourse } from '../shared/course.entity';
   templateUrl: './course-edit.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CourseEditComponent {
+export class CourseEditComponent implements OnInit, OnDestroy {
+  public courseId: number;
+  private _subscriptions: Subscription[] = [];
+
+  constructor(
+    private route: ActivatedRoute,
+  ) {}
+
+  public ngOnInit(): void {
+    this._subscriptions.push(
+      this.route.params.subscribe((params) => {
+        this.courseId = params.id == null ? null : +params.id;
+      })
+    );
+  }
+
+  public ngOnDestroy(): void {
+    this._subscriptions.forEach((s) => s.unsubscribe());
+  }
 
 }
