@@ -4,7 +4,7 @@
     <div fxFlex="2 2 40%" class="label-column">Title</div>
     <div fxFlex="3 3 60%">
       <md-input-container>
-        <input mdInput placeholder="">
+        <input mdInput>
       </md-input-container>
     </div>
   </div>
@@ -12,7 +12,7 @@
     <div fxFlex="2 2 40%" class="label-column">Description</div>
     <div fxFlex="3 3 60%">
       <md-input-container>
-        <textarea mdInput mdTextareaAutosize placeholder=""></textarea>
+        <textarea mdInput mdTextareaAutosize></textarea>
       </md-input-container>
     </div>
   </div>
@@ -20,23 +20,24 @@
     <div fxFlex="2 2 40%" class="label-column">Date</div>
     <div fxFlex="3 3 60%">
       <md-input-container>
-        <input mdInput type="date" placeholder="">
+        <input mdInput type="date">
       </md-input-container>
     </div>
   </div>
   <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center stretch">
     <div fxFlex="2 2 40%" class="label-column">Duration</div>
     <div fxFlex="3 3 60%">
-      <md-input-container>
-        <input mdInput placeholder="">
+      <md-input-container class="duration-input">
+        <input mdInput type="number" placeholder="minutes" [(ngModel)]="duration" name="duration">
       </md-input-container>
+      <span>{{ duration | cCourseDuration }}</span>
     </div>
   </div>
   <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center stretch">
     <div fxFlex="2 2 40%" class="label-column">Authors</div>
     <div fxFlex="3 3 60%">
       <md-input-container>
-        <input mdInput placeholder="">
+        <input mdInput>
       </md-input-container>
     </div>
   </div>
