@@ -1,6 +1,6 @@
 <button md-icon-button
   (click)="back()"
-  [disabled]="currentPage == 1">
+  [disabled]="currentPage == 1 || totalPages == 0">
   <md-icon>keyboard_arrow_left</md-icon>
 </button>
 <span>
@@ -8,6 +8,6 @@
 </span>
 <button md-icon-button
   (click)="forward()"
-  [disabled]="currentPage == totalPages">
+  [disabled]="currentPage == totalPages || totalPages == 0">
   <md-icon>keyboard_arrow_right</md-icon>
 </button>
