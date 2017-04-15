@@ -91,16 +91,8 @@ export class CoursesService {
     });
   }
 
-  public deleteCourse$(id: number): Observable<null> {
-    return Observable.of(null)
-      .delay(1000)
-      .do(() => {
-        this._updates$.next((courses: ICourse[]) => {
-          return courses.filter((course) => {
-            return course.id !== id;
-          });
-        });
-      });
+  public deleteCourse$(id: number): Observable<any> {
+    return this.http.delete(`${this.API_URL}${this._coursesEndpoint}/${id}`);
   }
 
   private generateCourses(): ICourseDto[] {

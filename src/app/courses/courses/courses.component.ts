@@ -70,8 +70,9 @@ export class CoursesComponent implements OnInit {
     dialogRef.afterClosed()
       .filter((result) => result)
       .do(() => this.loaderService.show())
-      .switchMap(() => this.coursesService.deleteCourse$(courseId) )
+      .switchMap(() => this.coursesService.deleteCourse$(courseId))
       .do(() => this.loaderService.hide())
+      .do(() => this.fetchCourses(0))
       .subscribe();
   }
 
