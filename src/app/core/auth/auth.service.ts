@@ -1,9 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
+import { Http, RequestOptionsArgs, ResponseContentType } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs';
 import 'rxjs';
 import * as faker from 'Faker';
+import * as decode from 'jwt-decode';
 
+import { API_URL } from './../../app.constants';
 import { IUser } from '../../entities/user';
 
 @Injectable()
@@ -13,11 +16,15 @@ export class AuthService {
   private _hasToken: boolean;
   private _hasToken$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private _userInfo$: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(null);
+  private _loginEndpoint: string = 'login';
+  private _usersEndpoint: string = 'users';
 
-  constructor() {
-    this._hasToken = !!localStorage.getItem(AuthService.TOKEN_STORAGE_KEY);
-    this._hasToken$.next(this._hasToken);
-    this._userInfo$.next(JSON.parse(localStorage.getItem(AuthService.USER_STORAGE_KEY)));
+  constructor(
+    @Inject(API_URL) private API_URL: string,
+    private http: Http,
+  ) {
+    this.updateHasToken();
+    this.updateUserInfo();
   }
 
   public get isAuthenticated(): boolean {
@@ -33,14 +40,36 @@ export class AuthService {
     localStorage.setItem(AuthService.USER_STORAGE_KEY, JSON.stringify(userInfo));
     localStorage.setItem(AuthService.TOKEN_STORAGE_KEY, faker.Company.bs());
 
-    return Observable.of(userInfo)
-      .delay(1000)
-      .do(() => console.info('successfully logged in!'))
-      .do(() => {
-        this._hasToken = true;
-        this._hasToken$.next(this._hasToken);
-        this._userInfo$.next(userInfo);
+    const options: RequestOptionsArgs = {
+      responseType: ResponseContentType.Json,
+    };
+
+    return this.http.get(`${this.API_URL}${this._loginEndpoint}`, options)
+      .map((response) => response.json())
+      .map(({ token }) => {
+        localStorage.setItem(AuthService.TOKEN_STORAGE_KEY, token);
+        this.updateHasToken();
+        return token;
+      })
+      .switchMap((token) => {
+        const { id } = decode(token);
+        return this.http.get(`${this.API_URL}${this._usersEndpoint}/${id}`, options);
+      })
+      .map((response) => response.json())
+      .map((user) => {
+        localStorage.setItem(AuthService.USER_STORAGE_KEY, JSON.stringify(user));
+        this.updateUserInfo();
+        return user;
       });
+
+    // return Observable.of(userInfo)
+    //   .delay(1000)
+    //   .do(() => console.info('successfully logged in!'))
+    //   .do(() => {
+    //     this._hasToken = true;
+    //     this._hasToken$.next(this._hasToken);
+    //     this._userInfo$.next(userInfo);
+    //   });
   }
 
   public logout(): Observable<null> {
@@ -63,5 +92,14 @@ export class AuthService {
 
   public get userInfo$(): Observable<IUser> {
     return this._userInfo$.asObservable();
+  }
+
+  private updateHasToken(): void {
+    this._hasToken = !!localStorage.getItem(AuthService.TOKEN_STORAGE_KEY);
+    this._hasToken$.next(this._hasToken);
+  }
+
+  private updateUserInfo(): void {
+    this._userInfo$.next(JSON.parse(localStorage.getItem(AuthService.USER_STORAGE_KEY)));
   }
 }
