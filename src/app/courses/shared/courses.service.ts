@@ -49,12 +49,17 @@ export class CoursesService {
     });
   }
 
-  public fetchCourses$(start: number = 0, limit: number = 5): Observable<any> {
+  public fetchCourses$(
+    start: number = 0,
+    limit: number = 5,
+    searchTerm: string = ''
+  ): Observable<any> {
     const options: RequestOptionsArgs = {
       responseType: ResponseContentType.Json,
       params: {
         _start: start,
         _limit: limit,
+        title_like: searchTerm,
       },
     };
     return this.http.get(this.API_URL + this._coursesEndpoint, options)

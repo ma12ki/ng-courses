@@ -26,7 +26,8 @@ export class CoursesComponent implements OnInit {
   public totalCourses$: Observable<number>;
   public offset: number = 0;
   public itemsPerPage: number = 5;
-  private searchTerm$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  private searchTerm: string = '';
+  // private searchTerm$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   constructor(
     private coursesService: CoursesService,
@@ -59,7 +60,7 @@ export class CoursesComponent implements OnInit {
   public fetchCourses(offset: number = 0): void {
     this.offset = offset;
     this.loaderService.show();
-    this.coursesService.fetchCourses$(offset, this.itemsPerPage)
+    this.coursesService.fetchCourses$(offset, this.itemsPerPage, this.searchTerm)
       .do(() => this.loaderService.hide())
       .subscribe();
   }
@@ -75,6 +76,8 @@ export class CoursesComponent implements OnInit {
   }
 
   public onSearch(searchTerm: string): void {
-    this.searchTerm$.next(searchTerm);
+    // this.searchTerm$.next(searchTerm);
+    this.searchTerm = searchTerm;
+    this.fetchCourses(0);
   }
 }
