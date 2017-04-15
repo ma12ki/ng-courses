@@ -11,8 +11,8 @@ import { IUser } from '../../entities/user';
 
 @Injectable()
 export class AuthService {
-  private static TOKEN_STORAGE_KEY = 'AUTH_TOKEN';
-  private static USER_STORAGE_KEY = 'AUTH_USER';
+  public static TOKEN_STORAGE_KEY = 'AUTH_TOKEN';
+  public static USER_STORAGE_KEY = 'AUTH_USER';
   private _hasToken: boolean;
   private _hasToken$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private _userInfo$: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(null);

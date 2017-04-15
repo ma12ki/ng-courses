@@ -1,6 +1,12 @@
+import { AuthorizedHttp } from './authorized-http.service';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpModule } from '@angular/http';
+import {
+  RequestOptions,
+  Http,
+  // HttpModule,
+  XHRBackend,
+} from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from '@angular/material';
@@ -24,7 +30,7 @@ import { PaginationComponent } from './pagination/pagination.component';
   ],
   exports: [
     CommonModule,
-    HttpModule,
+    // HttpModule,
     FormsModule,
     FlexLayoutModule,
     MaterialModule,
@@ -39,6 +45,13 @@ export class SharedModule {
       ngModule: SharedModule,
       providers: [
         LoaderService,
+        // {
+        //   provide: Http,
+        //   useFactory: (backend: XHRBackend, defaultOptions: RequestOptions) => {
+        //     return new AuthorizedHttp(backend, defaultOptions);
+        //   },
+        //   deps: [ XHRBackend, RequestOptions ],
+        // },
       ],
     };
   };

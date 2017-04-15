@@ -1,5 +1,4 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
 import {
   NgModule,
   ApplicationRef
@@ -53,7 +52,6 @@ type StoreType = {
   ],
   imports: [ // import Angular's modules
     BrowserModule,
-    HttpModule,
     RouterModule.forRoot(ROUTES),
     CoreModule,
     SharedModule.forRoot(),
