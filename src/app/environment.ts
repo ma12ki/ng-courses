@@ -7,9 +7,15 @@ import {
   ApplicationRef,
   enableProdMode
 } from '@angular/core';
+
+import { API_URL, API_URL_VALUE } from './app.constants';
+
 // Environment Providers
 let PROVIDERS: any[] = [
-  // common env directives
+  {
+    provide: API_URL,
+    useValue: API_URL_VALUE,
+  },
 ];
 
 // Angular debug tools in the dev console
