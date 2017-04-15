@@ -4,7 +4,7 @@ import * as moment from 'moment';
 export interface ICourseDto {
   id: number;
   title: string;
-  dateCreated: string;
+  date: string;
   durationSeconds: number;
   description: string;
   topRated: boolean;
@@ -17,7 +17,7 @@ export class CourseDto implements ICourseDto {
 
   constructor(
     public title: string = faker.Lorem.words(2).join(' '),
-    public dateCreated: string = moment(faker.Date.recent(500)).toDate().toISOString(),
+    public date: string = moment(faker.Date.recent(500)).toDate().toISOString(),
     public durationSeconds: number = faker.random.number(6000) + 300,
     public description: string = faker.Lorem.sentence(),
     public topRated: boolean = Math.random() > 0.5,

@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
+import { ResponseContentType, RequestOptionsArgs, Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs';
 import 'rxjs';
 import * as moment from 'moment';
 import * as faker from 'Faker';
 
+import { API_URL } from './../../app.constants';
 import { ICourseDto, CourseDto } from './course-dto.entity';
 import { ICourse, Course } from './course.entity';
 
@@ -16,8 +18,12 @@ interface ICourseOperation extends Function {
 export class CoursesService {
   private _courses$: Observable<ICourse[]>;
   private _updates$: BehaviorSubject<any> = new BehaviorSubject<any>((i) => i);
+  private _coursesEndpoint: string = 'courses';
 
-  constructor() {
+  constructor(
+    @Inject(API_URL) private API_URL: string,
+    private http: Http,
+  ) {
     const initialCourses: ICourse[] = this.mapDtoToModel(this.generateCourses());
 
     this._courses$ = this._updates$
@@ -38,6 +44,18 @@ export class CoursesService {
         return course.id === id;
       }));
     });
+  }
+
+  public fetchCourses$(): Observable<any> {
+    const options: RequestOptionsArgs = {
+      responseType: ResponseContentType.Json,
+    };
+    return this.http.get(this.API_URL + this._coursesEndpoint, options)
+      .map((response) => response.json())
+      .map(this.mapDtoToModel)
+      .do((courses: ICourse[]) => {
+        this._updates$.next((_) => courses);
+      });
   }
 
   public addCourse(course): void {
@@ -101,7 +119,7 @@ export class CoursesService {
       return {
         id: courseDto.id,
         title: courseDto.title,
-        date: new Date(courseDto.dateCreated),
+        date: new Date(courseDto.date),
         durationMinutes: Math.ceil(courseDto.durationSeconds / 60),
         description: courseDto.description,
         topRated: courseDto.topRated,

@@ -1,5 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from '@angular/material';
@@ -26,6 +27,7 @@ import { LoaderService } from './loader/loader.service';
     MaterialModule,
     MomentModule,
     LoaderComponent,
+    HttpModule,
   ],
 })
 export class SharedModule {
