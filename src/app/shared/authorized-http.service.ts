@@ -14,7 +14,7 @@ import { AuthService } from '../core/auth/auth.service';
 @Injectable()
 export class AuthorizedHttp extends Http {
   constructor(backend: ConnectionBackend, defaultOptions: RequestOptions) {
-    console.log('AAAAAAAAAAAAAAAAAAAAAAASSSSSSSSSSSSSSSSS');
+    console.log('------------------ AuthorizedHttp constructor');
     super(backend, defaultOptions);
   }
 
@@ -24,7 +24,7 @@ export class AuthorizedHttp extends Http {
   }
 
   public get(url: string, options: RequestOptionsArgs = {}): Observable<Response> {
-    console.log(url, options);
+    console.log('------------------ AuthorizedHttp', url, options);
     options = this.addAuthToken(options);
     return super.get(url, options);
   }

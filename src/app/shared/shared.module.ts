@@ -45,13 +45,13 @@ export class SharedModule {
       ngModule: SharedModule,
       providers: [
         LoaderService,
-        // {
-        //   provide: Http,
-        //   useFactory: (backend: XHRBackend, defaultOptions: RequestOptions) => {
-        //     return new AuthorizedHttp(backend, defaultOptions);
-        //   },
-        //   deps: [ XHRBackend, RequestOptions ],
-        // },
+        {
+          provide: Http,
+          useFactory: (backend: XHRBackend, defaultOptions: RequestOptions) => {
+            return new AuthorizedHttp(backend, defaultOptions);
+          },
+          deps: [ XHRBackend, RequestOptions ],
+        },
       ],
     };
   };
