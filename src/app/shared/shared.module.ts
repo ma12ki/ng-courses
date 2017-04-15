@@ -8,6 +8,7 @@ import { MomentModule } from 'angular2-moment';
 
 import { LoaderComponent } from './loader/loader.component';
 import { LoaderService } from './loader/loader.service';
+import { PaginationComponent } from './pagination/pagination.component';
 
 @NgModule({
   imports: [
@@ -19,15 +20,17 @@ import { LoaderService } from './loader/loader.service';
   ],
   declarations: [
     LoaderComponent,
+    PaginationComponent,
   ],
   exports: [
     CommonModule,
+    HttpModule,
     FormsModule,
     FlexLayoutModule,
     MaterialModule,
     MomentModule,
     LoaderComponent,
-    HttpModule,
+    PaginationComponent,
   ],
 })
 export class SharedModule {

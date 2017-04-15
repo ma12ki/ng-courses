@@ -24,6 +24,8 @@ import { CourseDeleteModalComponent } from '../course-delete-modal/';
 export class CoursesComponent implements OnInit {
   public courses$: Observable<ICourse[]>;
   public totalCourses$: Observable<number>;
+  public offset: number = 0;
+  public itemsPerPage: number = 5;
   private searchTerm$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   constructor(
@@ -54,9 +56,10 @@ export class CoursesComponent implements OnInit {
       });
   }
 
-  public fetchCourses(): void {
+  public fetchCourses(offset: number = 0): void {
+    this.offset = offset;
     this.loaderService.show();
-    this.coursesService.fetchCourses$()
+    this.coursesService.fetchCourses$(offset, this.itemsPerPage)
       .do(() => this.loaderService.hide())
       .subscribe();
   }
