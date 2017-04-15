@@ -27,7 +27,6 @@ export class CoursesComponent implements OnInit {
   public offset: number = 0;
   public itemsPerPage: number = 5;
   private searchTerm: string = '';
-  // private searchTerm$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   constructor(
     private coursesService: CoursesService,
@@ -48,13 +47,6 @@ export class CoursesComponent implements OnInit {
 
   public initCourses(): void {
     this.courses$ = this.coursesService.courses$;
-      // .map((courses: ICourse[]) => {
-      //   const twoWeeksAgo = moment().subtract(14, 'days');
-      //   return courses.filter((course) => moment(course.date).isAfter(twoWeeksAgo));
-      // })
-      // .combineLatest(this.searchTerm$, (courses: ICourse[], searchTerm: string) => {
-      //   return this.courseFindPipe.transform(courses, searchTerm);
-      // });
   }
 
   public fetchCourses(offset: number = 0): void {
@@ -77,7 +69,6 @@ export class CoursesComponent implements OnInit {
   }
 
   public onSearch(searchTerm: string): void {
-    // this.searchTerm$.next(searchTerm);
     this.searchTerm = searchTerm;
     this.fetchCourses(0);
   }

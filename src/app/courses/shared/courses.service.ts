@@ -95,33 +95,6 @@ export class CoursesService {
     return this.http.delete(`${this.API_URL}${this._coursesEndpoint}/${id}`);
   }
 
-  private generateCourses(): ICourseDto[] {
-    const courses: ICourseDto[] = [];
-
-    courses.push(new CourseDto(
-      'Fresh!',
-      moment().subtract(1, 'day').toDate().toISOString(),
-    ));
-    courses.push(new CourseDto(
-      'Upcoming!',
-      moment().add(5, 'days').toDate().toISOString(),
-    ));
-    courses.push(new CourseDto(
-      'Almost outdated!',
-      moment().subtract(13, 'days').toDate().toISOString(),
-    ));
-    courses.push(new CourseDto(
-      'Outdated!',
-      moment().subtract(15, 'days').toDate().toISOString(),
-    ));
-
-    for (let i = 0; i < 3; i++) {
-      courses.push(new CourseDto());
-    }
-
-    return courses;
-  }
-
   private mapDtoToModel(courses: ICourseDto[]): ICourse[] {
     return courses.map((courseDto) => {
       return {
