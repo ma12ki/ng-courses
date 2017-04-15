@@ -3,6 +3,6 @@
     <h2>ng-courses</h2>
     <c-breadcrumbs *ngIf="isUserAuthenticated$ | async"></c-breadcrumbs>
     <span class="spacer"></span>
-    <span *ngIf="isUserAuthenticated$ | async">hello, {{ (userInfo$ | async).login }}</span>
+    <span *ngIf="userInfo$ | async">hello, {{ (userInfo$ | async).login }}</span>
     <c-nav></c-nav>
 </md-toolbar>

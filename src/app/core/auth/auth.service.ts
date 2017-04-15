@@ -36,10 +36,6 @@ export class AuthService {
   }
 
   public login(login: string, password: string): Observable<IUser> {
-    const userInfo: IUser = { login };
-    localStorage.setItem(AuthService.USER_STORAGE_KEY, JSON.stringify(userInfo));
-    localStorage.setItem(AuthService.TOKEN_STORAGE_KEY, faker.Company.bs());
-
     const options: RequestOptionsArgs = {
       responseType: ResponseContentType.Json,
     };
@@ -61,15 +57,6 @@ export class AuthService {
         this.updateUserInfo();
         return user;
       });
-
-    // return Observable.of(userInfo)
-    //   .delay(1000)
-    //   .do(() => console.info('successfully logged in!'))
-    //   .do(() => {
-    //     this._hasToken = true;
-    //     this._hasToken$.next(this._hasToken);
-    //     this._userInfo$.next(userInfo);
-    //   });
   }
 
   public logout(): Observable<null> {
@@ -80,9 +67,8 @@ export class AuthService {
       .delay(1000)
       .do(() => console.info('successfully logged out!'))
       .do(() => {
-        this._hasToken = false;
-        this._hasToken$.next(this._hasToken);
-        this._userInfo$.next(null);
+        this.updateHasToken();
+        this.updateUserInfo();
       });
   }
 
