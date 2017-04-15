@@ -18,24 +18,27 @@ interface ICourseOperation extends Function {
 export class CoursesService {
   private _courses$: Observable<ICourse[]>;
   private _updates$: BehaviorSubject<any> = new BehaviorSubject<any>((i) => i);
+  private _totalCourses$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   private _coursesEndpoint: string = 'courses';
 
   constructor(
     @Inject(API_URL) private API_URL: string,
     private http: Http,
   ) {
-    const initialCourses: ICourse[] = this.mapDtoToModel(this.generateCourses());
-
     this._courses$ = this._updates$
       .scan((courses: ICourse[], operation: ICourseOperation) => {
         return operation(courses);
-      }, initialCourses)
+      }, [])
       .publishReplay(1)
       .refCount();
   }
 
   public get courses$(): Observable<ICourse[]> {
     return this._courses$;
+  }
+
+  public get totalCourses$(): Observable<number> {
+    return this._totalCourses$;
   }
 
   public getCourseById$(id: number): Observable<ICourse> {
@@ -46,11 +49,19 @@ export class CoursesService {
     });
   }
 
-  public fetchCourses$(): Observable<any> {
+  public fetchCourses$(start: number = 0, limit: number = 5): Observable<any> {
     const options: RequestOptionsArgs = {
       responseType: ResponseContentType.Json,
+      params: {
+        _start: start,
+        _limit: limit,
+      },
     };
     return this.http.get(this.API_URL + this._coursesEndpoint, options)
+      .do((response) => {
+        const totalCourses = +response.headers.get('x-total-count');
+        this._totalCourses$.next(totalCourses);
+      })
       .map((response) => response.json())
       .map(this.mapDtoToModel)
       .do((courses: ICourse[]) => {

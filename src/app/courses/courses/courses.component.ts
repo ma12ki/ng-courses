@@ -23,6 +23,7 @@ import { CourseDeleteModalComponent } from '../course-delete-modal/';
 })
 export class CoursesComponent implements OnInit {
   public courses$: Observable<ICourse[]>;
+  public totalCourses$: Observable<number>;
   private searchTerm$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   constructor(
@@ -33,10 +34,16 @@ export class CoursesComponent implements OnInit {
   ) { }
 
   public ngOnInit(): void {
+    this.initTotalCourses();
+    this.initCourses();
     this.fetchCourses();
   }
 
-  public fetchCourses(): void {
+  public initTotalCourses(): void {
+    this.totalCourses$ = this.coursesService.totalCourses$;
+  }
+
+  public initCourses(): void {
     this.courses$ = this.coursesService.courses$
       .map((courses: ICourse[]) => {
         const twoWeeksAgo = moment().subtract(14, 'days');
@@ -45,6 +52,13 @@ export class CoursesComponent implements OnInit {
       .combineLatest(this.searchTerm$, (courses: ICourse[], searchTerm: string) => {
         return this.courseFindPipe.transform(courses, searchTerm);
       });
+  }
+
+  public fetchCourses(): void {
+    this.loaderService.show();
+    this.coursesService.fetchCourses$()
+      .do(() => this.loaderService.hide())
+      .subscribe();
   }
 
   public deleteCourse(courseId: number): void {
