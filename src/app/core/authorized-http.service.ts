@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   ConnectionBackend,
   Http,
+  Headers,
   Request,
   RequestOptions,
   RequestOptionsArgs,
@@ -9,12 +10,9 @@ import {
 } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
-import { AuthService } from '../core/auth/auth.service';
-
 @Injectable()
 export class AuthorizedHttp extends Http {
   constructor(backend: ConnectionBackend, defaultOptions: RequestOptions) {
-    console.log('------------------ AuthorizedHttp constructor');
     super(backend, defaultOptions);
   }
 
@@ -24,7 +22,6 @@ export class AuthorizedHttp extends Http {
   }
 
   public get(url: string, options: RequestOptionsArgs = {}): Observable<Response> {
-    console.log('------------------ AuthorizedHttp', url, options);
     options = this.addAuthToken(options);
     return super.get(url, options);
   }
@@ -60,7 +57,10 @@ export class AuthorizedHttp extends Http {
   }
 
   private addAuthToken(options: RequestOptionsArgs): RequestOptionsArgs {
-    const token = localStorage.getItem(AuthService.TOKEN_STORAGE_KEY);
+    const token = localStorage.getItem('AUTH_TOKEN');
+    if (!options.headers) {
+      options.headers = new Headers();
+    }
     options.headers.set('Authorization', `Bearer ${token}`);
     return options;
   }

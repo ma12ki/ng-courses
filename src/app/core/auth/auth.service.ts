@@ -8,6 +8,7 @@ import * as decode from 'jwt-decode';
 
 import { API_URL } from './../../app.constants';
 import { IUser } from '../../entities/user';
+import { AuthorizedHttp } from '../authorized-http.service';
 
 @Injectable()
 export class AuthService {
@@ -21,7 +22,7 @@ export class AuthService {
 
   constructor(
     @Inject(API_URL) private API_URL: string,
-    private http: Http,
+    private http: AuthorizedHttp,
   ) {
     this.updateHasToken();
     this.updateUserInfo();

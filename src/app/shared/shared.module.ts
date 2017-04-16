@@ -1,10 +1,7 @@
-import { AuthorizedHttp } from './authorized-http.service';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   RequestOptions,
-  Http,
-  // HttpModule,
   XHRBackend,
 } from '@angular/http';
 import { FormsModule } from '@angular/forms';
@@ -30,7 +27,6 @@ import { PaginationComponent } from './pagination/pagination.component';
   ],
   exports: [
     CommonModule,
-    // HttpModule,
     FormsModule,
     FlexLayoutModule,
     MaterialModule,
@@ -45,13 +41,14 @@ export class SharedModule {
       ngModule: SharedModule,
       providers: [
         LoaderService,
-        {
-          provide: Http,
-          useFactory: (backend: XHRBackend, defaultOptions: RequestOptions) => {
-            return new AuthorizedHttp(backend, defaultOptions);
-          },
-          deps: [ XHRBackend, RequestOptions ],
-        },
+        // not working because MdIconModule overrides this with the standard Http provider
+        // {
+        //   provide: Http,
+        //   useFactory: (backend: XHRBackend, defaultOptions: RequestOptions) => {
+        //     return new AuthorizedHttp(backend, defaultOptions);
+        //   },
+        //   deps: [ XHRBackend, RequestOptions ],
+        // },
       ],
     };
   };

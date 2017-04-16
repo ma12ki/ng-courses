@@ -9,6 +9,7 @@ import * as faker from 'Faker';
 import { API_URL } from './../../app.constants';
 import { ICourseDto, CourseDto } from './course-dto.entity';
 import { ICourse, Course } from './course.entity';
+import { AuthorizedHttp } from './../../core/authorized-http.service';
 
 interface ICourseOperation extends Function {
   (courses: ICourse[]): ICourse[];
@@ -23,7 +24,7 @@ export class CoursesService {
 
   constructor(
     @Inject(API_URL) private API_URL: string,
-    private http: Http,
+    private http: AuthorizedHttp,
   ) {
     this._courses$ = this._updates$
       .scan((courses: ICourse[], operation: ICourseOperation) => {
