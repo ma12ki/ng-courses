@@ -24,7 +24,7 @@ export class CoursesService {
 
   constructor(
     @Inject(API_URL) private API_URL: string,
-    private http: AuthorizedHttp,
+    private http: Http,
   ) {
     this._courses$ = this._updates$
       .scan((courses: ICourse[], operation: ICourseOperation) => {

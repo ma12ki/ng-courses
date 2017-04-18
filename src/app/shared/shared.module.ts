@@ -3,20 +3,26 @@ import { CommonModule } from '@angular/common';
 import {
   RequestOptions,
   XHRBackend,
+  Http,
 } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {
-  MdIconModule,
-  MdProgressSpinnerModule,
-} from '@angular/material';
 import { MomentModule } from 'angular2-moment';
 
 import { CustomMaterialModule } from './custom-material.module';
 
+import { AuthorizedHttp } from './authorized-http.service';
 import { LoaderComponent } from './loader/loader.component';
 import { LoaderService } from './loader/loader.service';
 import { PaginationComponent } from './pagination/pagination.component';
+
+const AUTHORIZED_HTTP_PROVIDER = {
+  provide: Http,
+  useFactory: (backend: XHRBackend, defaultOptions: RequestOptions) => {
+    return new AuthorizedHttp(backend, defaultOptions);
+  },
+  deps: [ XHRBackend, RequestOptions ],
+};
 
 @NgModule({
   imports: [
@@ -46,14 +52,17 @@ export class SharedModule {
       ngModule: SharedModule,
       providers: [
         LoaderService,
-        // not working because MdIconModule overrides this with the standard Http provider
-        // {
-        //   provide: Http,
-        //   useFactory: (backend: XHRBackend, defaultOptions: RequestOptions) => {
-        //     return new AuthorizedHttp(backend, defaultOptions);
-        //   },
-        //   deps: [ XHRBackend, RequestOptions ],
-        // },
+        AUTHORIZED_HTTP_PROVIDER,
+      ],
+    };
+  };
+  // dedicated module with providers that just override the Http provider
+  // which is being overriden by that darned MdIconModule
+  public static forStupidMdIconModule(): ModuleWithProviders {
+    return {
+      ngModule: SharedModule,
+      providers: [
+        AUTHORIZED_HTTP_PROVIDER,
       ],
     };
   };

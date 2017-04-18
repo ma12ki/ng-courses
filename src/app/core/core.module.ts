@@ -1,14 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { XHRBackend, RequestOptions, HttpModule } from '@angular/http';
+import {
+  XHRBackend,
+  RequestOptions,
+  HttpModule,
+  Http,
+} from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MaterialModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MomentModule } from 'angular2-moment';
 
-import { AuthorizedHttp } from './authorized-http.service';
+import { SharedModule } from './../shared/shared.module';
+
 import { AuthService } from './auth/auth.service';
 import { AuthGuardService } from './auth/auth-guard.service';
 import { PerformanceService } from './performance/performance.service';
@@ -23,11 +28,11 @@ import { NoContentComponent } from './no-content';
     CommonModule,
     FormsModule,
     RouterModule,
-    MaterialModule.forRoot(),
     FlexLayoutModule.forRoot(),
+    SharedModule.forRoot(),
     BrowserAnimationsModule,
     MomentModule,
-    HttpModule,
+    // HttpModule,
   ],
   declarations: [
     FooterComponent,
@@ -40,19 +45,18 @@ import { NoContentComponent } from './no-content';
     AuthService,
     AuthGuardService,
     PerformanceService,
-    {
-      provide: AuthorizedHttp,
-      useFactory: (backend: XHRBackend, defaultOptions: RequestOptions) => {
-        return new AuthorizedHttp(backend, defaultOptions);
-      },
-      deps: [ XHRBackend, RequestOptions ],
-      // useClass: AuthorizedHttp,
-    },
+    // {
+    //   provide: Http,
+    //   useFactory: (backend: XHRBackend, defaultOptions: RequestOptions) => {
+    //     return new AuthorizedHttp(backend, defaultOptions);
+    //   },
+    //   deps: [ XHRBackend, RequestOptions ],
+    //   // useClass: AuthorizedHttp,
+    // },
   ],
   exports: [
     CommonModule,
     FormsModule,
-    MaterialModule,
     FlexLayoutModule,
     MomentModule,
     FooterComponent,

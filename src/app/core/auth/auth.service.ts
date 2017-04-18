@@ -22,7 +22,7 @@ export class AuthService {
 
   constructor(
     @Inject(API_URL) private API_URL: string,
-    private http: AuthorizedHttp,
+    private http: Http,
   ) {
     this.updateHasToken();
     this.updateUserInfo();

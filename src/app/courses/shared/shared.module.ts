@@ -9,6 +9,9 @@ import { OrderByPipe } from './order-by.pipe';
 import { CourseHighlightDirective } from './course-highlight.directive';
 
 @NgModule({
+  imports: [
+    SharedModule.forStupidMdIconModule(),
+  ],
   declarations: [
     CourseDurationPipe,
     CourseFindPipe,
