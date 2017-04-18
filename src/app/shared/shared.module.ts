@@ -6,8 +6,13 @@ import {
 } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MaterialModule } from '@angular/material';
+import {
+  MdIconModule,
+  MdProgressSpinnerModule,
+} from '@angular/material';
 import { MomentModule } from 'angular2-moment';
+
+import { CustomMaterialModule } from './custom-material.module';
 
 import { LoaderComponent } from './loader/loader.component';
 import { LoaderService } from './loader/loader.service';
@@ -18,7 +23,7 @@ import { PaginationComponent } from './pagination/pagination.component';
     CommonModule,
     FormsModule,
     FlexLayoutModule,
-    MaterialModule,
+    CustomMaterialModule,
     MomentModule,
   ],
   declarations: [
@@ -29,7 +34,7 @@ import { PaginationComponent } from './pagination/pagination.component';
     CommonModule,
     FormsModule,
     FlexLayoutModule,
-    MaterialModule,
+    CustomMaterialModule,
     MomentModule,
     LoaderComponent,
     PaginationComponent,
