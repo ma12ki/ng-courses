@@ -1,22 +1,28 @@
 import { NgModule } from '@angular/core';
 import {
-  MdIconModule,
+  MdToolbarModule,
+  MdMenuModule,
   MdProgressSpinnerModule,
-  MdCardModule,
   MdInputModule,
   MdButtonModule,
   MdListModule,
+  MdChipsModule,
+  MdCardModule,
+  MdIconModule,
   MdDialogModule,
 } from '@angular/material';
 
 @NgModule({
   exports: [
-    MdIconModule,
+    MdToolbarModule,
+    MdMenuModule,
     MdProgressSpinnerModule,
-    MdCardModule,
     MdInputModule,
     MdButtonModule,
     MdListModule,
+    MdChipsModule,
+    MdCardModule,
+    MdIconModule,
     MdDialogModule,
   ],
 })
