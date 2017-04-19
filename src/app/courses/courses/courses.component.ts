@@ -2,10 +2,12 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
+  OnDestroy,
 } from '@angular/core';
 import { MdDialog } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/Rx';
+import { Subscription } from 'rxjs/Subscription';
 import 'rxjs';
 import * as moment from 'moment';
 
@@ -21,12 +23,14 @@ import { CourseDeleteModalComponent } from '../course-delete-modal/';
   templateUrl: './courses.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CoursesComponent implements OnInit {
+export class CoursesComponent implements OnInit, OnDestroy {
+
   public courses$: Observable<ICourse[]>;
   public totalCourses$: Observable<number>;
   public offset: number = 0;
   public itemsPerPage: number = 5;
   private searchTerm: string = '';
+  private _subscriptions: Subscription[] = [];
 
   constructor(
     private coursesService: CoursesService,
@@ -52,24 +56,30 @@ export class CoursesComponent implements OnInit {
   public fetchCourses(offset: number = 0): void {
     this.offset = offset;
     this.loaderService.show();
-    this.coursesService.fetchCourses$(offset, this.itemsPerPage, this.searchTerm)
-      .do(() => this.loaderService.hide())
-      .subscribe();
+    this._subscriptions.push(
+      this.coursesService.fetchCourses$(offset, this.itemsPerPage, this.searchTerm)
+        .do(() => this.loaderService.hide())
+        .subscribe());
   }
 
   public deleteCourse(courseId: number): void {
     const dialogRef = this.dialog.open(CourseDeleteModalComponent);
-    dialogRef.afterClosed()
-      .filter((result) => result)
-      .do(() => this.loaderService.show())
-      .switchMap(() => this.coursesService.deleteCourse$(courseId))
-      .do(() => this.loaderService.hide())
-      .do(() => this.fetchCourses(0))
-      .subscribe();
+    this._subscriptions.push(
+      dialogRef.afterClosed()
+        .filter((result) => result)
+        .do(() => this.loaderService.show())
+        .switchMap(() => this.coursesService.deleteCourse$(courseId))
+        .do(() => this.loaderService.hide())
+        .do(() => this.fetchCourses(0))
+        .subscribe());
   }
 
   public onSearch(searchTerm: string): void {
     this.searchTerm = searchTerm;
     this.fetchCourses(0);
+  }
+
+  public ngOnDestroy(): void {
+    this._subscriptions.forEach((s) => s.unsubscribe());
   }
 }

@@ -2,8 +2,10 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
+  OnDestroy,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { LoaderService } from './../../shared/loader/loader.service';
@@ -14,7 +16,9 @@ import { LoaderService } from './../../shared/loader/loader.service';
   templateUrl: './login.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
+  private _subscriptions: Subscription[] = [];
+
   constructor(
     private authService: AuthService,
     private loaderService: LoaderService,
@@ -27,9 +31,14 @@ export class LoginComponent implements OnInit {
 
   public login() {
     this.loaderService.show();
-    this.authService.login('meh', 'w/e')
-      .do(() => this.loaderService.hide())
-      .do(() => this.router.navigate(['']))
-      .subscribe();
+    this._subscriptions.push(
+      this.authService.login('meh', 'w/e')
+        .do(() => this.loaderService.hide())
+        .do(() => this.router.navigate(['']))
+        .subscribe());
+  }
+
+  public ngOnDestroy(): void {
+    this._subscriptions.forEach((s) => s.unsubscribe());
   }
 }
