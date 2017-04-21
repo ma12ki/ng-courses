@@ -29,10 +29,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     console.log('LoginComponent init');
   }
 
-  public login() {
+  public login(login, password) {
     this.loaderService.show();
     this._subscriptions.push(
-      this.authService.login('meh', 'w/e')
+      this.authService.login(login, password)
         .do(() => this.loaderService.hide())
         .do(() => this.router.navigate(['']))
         .subscribe());

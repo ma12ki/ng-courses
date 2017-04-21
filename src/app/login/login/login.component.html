@@ -1,14 +1,28 @@
-<div class="login-container" fxLayout="column" fxLayoutAlign="center center">
+<form class="login-container"
+      #loginForm="ngForm"
+      (ngSubmit)="$event.preventDefault(); login(loginForm.controls.login.value, loginForm.controls.password.value)"
+      fxLayout="column"
+      fxLayoutAlign="center center">
     <i fxFlex="grow"></i>
     <md-input-container>
-        <input mdInput placeholder="login" required>
+        <input mdInput
+               placeholder="login"
+               name="login"
+               ngModel
+               required>
     </md-input-container>
     <md-input-container>
-        <input mdInput placeholder="password" type="password" required>
+        <input mdInput
+               placeholder="password"
+               name="password"
+               ngModel
+               type="password"
+               required>
     </md-input-container>
 
     <div>
-        <button md-raised-button (click)="login()">Log in</button>
+        <button md-raised-button [disabled]="loginForm.form.invalid || loginForm.form.pristine" type="submit">Log in</button>
     </div>
+
     <i fxFlex="grow"></i>
-</div>
+</form>
