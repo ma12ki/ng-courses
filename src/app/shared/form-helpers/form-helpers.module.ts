@@ -6,6 +6,8 @@ import { MomentModule } from 'angular2-moment';
 
 import { CustomMaterialModule } from '../custom-material.module';
 
+import { DateInputComponent } from './date-input/date-input.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -15,8 +17,10 @@ import { CustomMaterialModule } from '../custom-material.module';
     MomentModule,
   ],
   declarations: [
+    DateInputComponent,
   ],
   exports: [
+    DateInputComponent,
   ],
 })
 export class FormHelpersModule {}

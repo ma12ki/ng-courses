@@ -10,6 +10,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MomentModule } from 'angular2-moment';
 
 import { CustomMaterialModule } from './custom-material.module';
+import { FormHelpersModule } from './form-helpers/form-helpers.module';
 
 import { AuthorizedHttp } from './authorized-http.service';
 import { LoaderComponent } from './loader/loader.component';
@@ -44,6 +45,7 @@ const AUTHORIZED_HTTP_PROVIDER = {
     MomentModule,
     LoaderComponent,
     PaginationComponent,
+    FormHelpersModule,
   ],
 })
 export class SharedModule {
