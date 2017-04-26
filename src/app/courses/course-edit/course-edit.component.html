@@ -1,10 +1,18 @@
-<form fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="start stretch">
+<form #courseEditForm="ngForm"
+      (ngSubmit)="$event.preventDefault(); save()"
+      fxLayout="column"
+      fxLayoutGap="10px"
+      fxLayoutAlign="start stretch">
   <header class="form-title">New course</header>
   <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center stretch">
     <div fxFlex="2 2 40%" class="label-column">Title</div>
     <div fxFlex="3 3 60%">
       <md-input-container>
-        <input mdInput>
+        <input mdInput
+               name="title"
+               required
+               maxlength="50"
+               ngModel>
       </md-input-container>
     </div>
   </div>
@@ -12,7 +20,13 @@
     <div fxFlex="2 2 40%" class="label-column">Description</div>
     <div fxFlex="3 3 60%">
       <md-input-container>
-        <textarea mdInput mdTextareaAutosize></textarea>
+        <textarea mdInput
+                  mdTextareaAutosize
+                  name="description"
+                  required
+                  maxlength="500"
+                  ngModel>
+        </textarea>
       </md-input-container>
     </div>
   </div>
@@ -44,7 +58,7 @@
   <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center stretch">
     <div fxFlex="2 2 40%" class="label-column"></div>
     <div fxFlex="3 3 60%">
-      <button md-button (click)="save()"><md-icon>save</md-icon>Save</button>
+      <button md-button type="submit" [disabled]="courseEditForm.pristine || courseEditForm.invalid"><md-icon>save</md-icon>Save</button>
       <button md-button (click)="cancel()"><md-icon>cancel</md-icon>Cancel</button>
     </div>
   </div>
