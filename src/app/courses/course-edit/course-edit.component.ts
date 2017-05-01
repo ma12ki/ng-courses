@@ -52,8 +52,4 @@ export class CourseEditComponent implements OnInit, OnDestroy {
   public cancel(): void {
     this.router.navigate(['']);
   }
-
-  public log(a: any): void {
-    console.log(a);
-  }
 }
