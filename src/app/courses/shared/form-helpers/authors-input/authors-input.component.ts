@@ -75,8 +75,8 @@ export class AuthorsInputComponent implements ControlValueAccessor, Validator {
   }
 
   public writeValue(value: number[]): void {
-    if (value !== this.value) {
-      this.value = value;
+    if (value) {
+      this._value = value;
     }
   }
 

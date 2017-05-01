@@ -4,4 +4,7 @@
     (change)="updateSelected(author.id, $event.checked)">
   {{ author.name }}
 </md-checkbox>
-{{ value }}
+
+<div *ngIf="control?.invalid && control?.dirty">
+  <md-error *ngIf="control?.errors?.required">At least one author must be selected</md-error>
+</div>
