@@ -55,6 +55,19 @@ const mockLogin = () => {
   };
 };
 
+const mockAuthor = (() => {
+  let idCounter = 0;
+
+  return (
+    name = `${faker.Name.firstName()} ${faker.Name.lastName()}`
+  ) => {
+    return {
+      id: idCounter++,
+      name
+    };
+  };
+})();
+
 const mockUsers = () => {
   return [
     {
@@ -65,11 +78,18 @@ const mockUsers = () => {
   ];
 };
 
+const mockAuthors = () => {
+  return new Array(10).fill(null).map(() => {
+    return mockAuthor();
+  });
+};
+
 const mockBackend = () => {
   return {
     courses: mockCourses(),
     login: mockLogin(),
-    users: mockUsers()
+    users: mockUsers(),
+    authors: mockAuthors()
   };
 };
 
