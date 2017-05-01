@@ -1,4 +1,4 @@
-<form #courseEditForm="ngForm"
+<form novalidate #courseEditForm="ngForm"
       (ngSubmit)="$event.preventDefault(); save()"
       fxLayout="column"
       fxLayoutGap="10px"
@@ -33,9 +33,7 @@
   <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center stretch">
     <div fxFlex="2 2 40%" class="label-column">Date</div>
     <div fxFlex="3 3 60%">
-      <md-input-container>
-        <input mdInput type="date">
-      </md-input-container>
+      <c-date-input name="date" ngModel required [control]="courseEditForm.controls.date"></c-date-input>
     </div>
   </div>
   <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center stretch">
@@ -58,12 +56,13 @@
   <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center stretch">
     <div fxFlex="2 2 40%" class="label-column"></div>
     <div fxFlex="3 3 60%">
+      <button md-button type="button" (click)="log(courseEditForm)">log form</button>
       <button md-button type="submit" [disabled]="courseEditForm.pristine || courseEditForm.invalid"><md-icon>save</md-icon>Save</button>
       <button md-button (click)="cancel()"><md-icon>cancel</md-icon>Cancel</button>
     </div>
   </div>
-  <div>
-    <c-date-input name="lol" ngModel></c-date-input>
-  </div>
-  {{ courseEditForm.value | json }}
+  form valid: {{ courseEditForm.valid }} <br>
+  form value: {{ courseEditForm.value | json }} <br>
+  form errors: {{ courseEditForm.errors | json }} <br>
+  lol: {{ courseEditForm.lol }}
 </form>
