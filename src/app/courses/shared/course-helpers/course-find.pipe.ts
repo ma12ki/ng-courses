@@ -1,6 +1,6 @@
 import { PipeTransform, Pipe } from '@angular/core';
 
-import { ICourse } from './course.entity';
+import { ICourse } from '../course.entity';
 
 @Pipe({ name: 'cCourseFind' })
 export class CourseFindPipe implements PipeTransform {

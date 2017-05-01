@@ -13,7 +13,7 @@ import * as moment from 'moment';
 
 import { LoaderService } from './../../shared/loader/loader.service';
 import { CoursesService } from '../shared/courses.service';
-import { CourseFindPipe } from '../shared/course-find.pipe';
+import { CourseFindPipe } from '../shared/course-helpers/course-find.pipe';
 import { ICourse } from '../shared/course.entity';
 import { CourseDeleteModalComponent } from '../course-delete-modal/';
 

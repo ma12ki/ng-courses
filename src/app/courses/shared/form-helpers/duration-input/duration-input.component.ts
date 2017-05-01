@@ -14,37 +14,35 @@ import {
   Validator,
   ValidationErrors,
 } from '@angular/forms';
-import * as moment from 'moment';
 
-const DATE_INPUT_VALUE_ACCESSOR = {
+const DURATION_INPUT_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
   // tslint:disable-next-line:no-forward-ref
-  useExisting: forwardRef(() => DateInputComponent),
+  useExisting: forwardRef(() => DurationInputComponent),
   multi: true,
 };
 
-const DATE_INPUT_VALIDATOR = {
+const DURATION_INPUT_VALIDATOR = {
   provide: NG_VALIDATORS,
   // tslint:disable-next-line:no-forward-ref
-  useExisting: forwardRef(() => DateInputComponent),
+  useExisting: forwardRef(() => DurationInputComponent),
   multi: true,
 };
 
 @Component({
-  selector: 'c-date-input',
-  templateUrl: './date-input.component.html',
+  selector: 'c-duration-input',
+  templateUrl: './duration-input.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
-    DATE_INPUT_VALUE_ACCESSOR,
-    DATE_INPUT_VALIDATOR,
+    DURATION_INPUT_VALUE_ACCESSOR,
+    DURATION_INPUT_VALIDATOR,
   ],
 })
-export class DateInputComponent implements ControlValueAccessor, Validator {
+export class DurationInputComponent implements ControlValueAccessor, Validator {
   @Input() public control: FormControl;
 
-  private _value: Date;
+  private _value: number;
   private _validationErrors: ValidationErrors;
-  private _acceptedFormat = 'DD/MM/YYYY';
   private _onChange: Function;
   private _onTouched: Function;
   private _onValidatorChange: Function;
@@ -54,15 +52,15 @@ export class DateInputComponent implements ControlValueAccessor, Validator {
   }
 
   public set value(newValue) {
-    const date = moment(newValue, this._acceptedFormat, true);
-    const oldValue = this._value ? moment(this._value).toDate() : null;
+    const valid = newValue && newValue > 0 && (Math.floor(newValue) === newValue);
+    const oldValue = this._value;
     const oldValidationErrors = this._validationErrors ? { ...this._validationErrors } : null;
-    if (newValue && date.isValid()) {
-      this._value = date.toDate();
+    if (newValue && valid) {
+      this._value = newValue;
     } else {
       this._value = null;
     }
-    this._validationErrors = (newValue && !date.isValid()) ? { invalidFormat: true } : null;
+    this._validationErrors = (newValue && valid) ? { invalidNumber: true } : null;
 
     if (this._isValueChanged(oldValue)) {
       this._emitChange();
@@ -84,7 +82,7 @@ export class DateInputComponent implements ControlValueAccessor, Validator {
     this.value = event.target.value;
   }
 
-  public writeValue(value: Date): void {
+  public writeValue(value: number): void {
     if (value !== this.value) {
       this.value = value;
     }
@@ -103,11 +101,7 @@ export class DateInputComponent implements ControlValueAccessor, Validator {
   }
 
   private _isValueChanged(oldValue): boolean {
-    return (
-      (!oldValue && !!this._value) ||
-      (!!oldValue && !this._value) ||
-      (!moment(oldValue).isSame(this._value))
-    );
+    return oldValue === this._value;
   }
 
   private _emitChange(): void {

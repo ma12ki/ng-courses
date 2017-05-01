@@ -1,33 +1,27 @@
 import { NgModule } from '@angular/core';
 
 import { SharedModule } from '../../shared/shared.module';
+import { CoursesHelpersModule } from './course-helpers/course-helpers.module';
+import { CoursesFormHelpersModule } from './form-helpers/form-helpers.module';
 
 import { CoursesService } from './courses.service';
-import { CourseFindPipe } from './course-find.pipe';
-import { CourseDurationPipe } from './course-duration.pipe';
 import { OrderByPipe } from './order-by.pipe';
-import { CourseHighlightDirective } from './course-highlight.directive';
 
 @NgModule({
   imports: [
     SharedModule.forStupidMdIconModule(),
   ],
   declarations: [
-    CourseDurationPipe,
-    CourseFindPipe,
     OrderByPipe,
-    CourseHighlightDirective,
   ],
   providers: [
     CoursesService,
-    CourseFindPipe,
   ],
   exports: [
     SharedModule,
-    CourseDurationPipe,
-    CourseFindPipe,
+    CoursesHelpersModule,
+    CoursesFormHelpersModule,
     OrderByPipe,
-    CourseHighlightDirective,
   ],
 })
 export class CoursesSharedModule { }
