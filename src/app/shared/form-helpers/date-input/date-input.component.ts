@@ -85,9 +85,7 @@ export class DateInputComponent implements ControlValueAccessor, Validator {
   }
 
   public writeValue(value: Date): void {
-    if (value !== this.value) {
-      this.value = value;
-    }
+    this._value = value;
   }
 
   public registerOnChange(fn: Function): void {

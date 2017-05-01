@@ -3,3 +3,10 @@
          placeholder="DD/MM/YYYY"
          (blur)="updateValue($event)">
 </md-input-container>
+
+<div *ngIf="control?.invalid && control?.dirty">
+  <md-error *ngIf="control?.errors?.invalidFormat; else requiredBlock">Invalid format</md-error>
+  <ng-template #requiredBlock>
+    <md-error *ngIf="control?.errors?.required">This input is required</md-error>
+  </ng-template>
+</div>
