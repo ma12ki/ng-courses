@@ -51,7 +51,8 @@ export class DurationInputComponent implements ControlValueAccessor, Validator {
     return this._value;
   }
 
-  public set value(newValue) {
+  public set value(newValue: number) {
+    newValue = +newValue;
     const valid = newValue && newValue > 0 && (Math.floor(newValue) === newValue);
     const oldValue = this._value;
     const oldValidationErrors = this._validationErrors ? { ...this._validationErrors } : null;
