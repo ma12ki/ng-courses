@@ -111,7 +111,7 @@ export class DurationInputComponent implements ControlValueAccessor, Validator {
   }
 
   private _areValidationErrorsChanged(oldValidationErrors): boolean {
-    return JSON.stringify(oldValidationErrors) === JSON.stringify(this._validationErrors);
+    return JSON.stringify(oldValidationErrors) !== JSON.stringify(this._validationErrors);
   }
 
   private _emitValidatorChange(): void {

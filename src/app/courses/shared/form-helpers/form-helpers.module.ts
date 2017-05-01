@@ -8,6 +8,7 @@ import { CustomMaterialModule } from '../../../shared/custom-material.module';
 import { CoursesHelpersModule } from '../course-helpers/course-helpers.module';
 
 import { CourseDurationPipe } from '../course-duration.pipe';
+import { AuthorsInputComponent } from './authors-input/authors-input.component';
 import { DurationInputComponent } from './duration-input/duration-input.component';
 
 @NgModule({
@@ -21,9 +22,11 @@ import { DurationInputComponent } from './duration-input/duration-input.componen
   ],
   declarations: [
     DurationInputComponent,
+    AuthorsInputComponent,
   ],
   exports: [
     DurationInputComponent,
+    AuthorsInputComponent,
   ],
 })
 export class CoursesFormHelpersModule {}

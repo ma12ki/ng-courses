@@ -14,37 +14,41 @@ import {
   Validator,
   ValidationErrors,
 } from '@angular/forms';
-import * as moment from 'moment';
 
-const DATE_INPUT_VALUE_ACCESSOR = {
+import { IAuthor } from '../../author.entity';
+
+const AUTHORS_INPUT_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
   // tslint:disable-next-line:no-forward-ref
-  useExisting: forwardRef(() => DateInputComponent),
+  useExisting: forwardRef(() => AuthorsInputComponent),
   multi: true,
 };
 
-const DATE_INPUT_VALIDATOR = {
+const AUTHORS_INPUT_VALIDATOR = {
   provide: NG_VALIDATORS,
   // tslint:disable-next-line:no-forward-ref
-  useExisting: forwardRef(() => DateInputComponent),
+  useExisting: forwardRef(() => AuthorsInputComponent),
   multi: true,
 };
 
 @Component({
-  selector: 'c-date-input',
-  templateUrl: './date-input.component.html',
+  selector: 'c-authors-input',
+  templateUrl: './authors-input.component.html',
+  styleUrls: [
+    './authors-input.scss',
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
-    DATE_INPUT_VALUE_ACCESSOR,
-    DATE_INPUT_VALIDATOR,
+    AUTHORS_INPUT_VALUE_ACCESSOR,
+    AUTHORS_INPUT_VALIDATOR,
   ],
 })
-export class DateInputComponent implements ControlValueAccessor, Validator {
+export class AuthorsInputComponent implements ControlValueAccessor, Validator {
   @Input() public control: FormControl;
+  @Input() public authors: IAuthor[];
 
-  private _value: Date;
+  private _value: number[] = [];
   private _validationErrors: ValidationErrors;
-  private _acceptedFormat = 'DD/MM/YYYY';
   private _onChange: Function;
   private _onTouched: Function;
   private _onValidatorChange: Function;
@@ -54,21 +58,11 @@ export class DateInputComponent implements ControlValueAccessor, Validator {
   }
 
   public set value(newValue) {
-    const date = moment(newValue, this._acceptedFormat, true);
-    const oldValue = this._value ? moment(this._value).toDate() : null;
-    const oldValidationErrors = this._validationErrors ? { ...this._validationErrors } : null;
-    if (newValue && date.isValid()) {
-      this._value = date.toDate();
-    } else {
-      this._value = null;
-    }
-    this._validationErrors = (newValue && !date.isValid()) ? { invalidFormat: true } : null;
+    const oldValue = [ ...this._value ];
+    this._value = newValue || [];
 
     if (this._isValueChanged(oldValue)) {
       this._emitChange();
-    }
-    if (this._areValidationErrorsChanged(oldValidationErrors)) {
-      this._emitValidatorChange();
     }
   }
 
@@ -80,11 +74,7 @@ export class DateInputComponent implements ControlValueAccessor, Validator {
     return this._validationErrors;
   }
 
-  public updateValue(event) {
-    this.value = event.target.value;
-  }
-
-  public writeValue(value: Date): void {
+  public writeValue(value: number[]): void {
     if (value !== this.value) {
       this.value = value;
     }
@@ -102,22 +92,30 @@ export class DateInputComponent implements ControlValueAccessor, Validator {
     throw new Error('Not implemented yet.');
   }
 
+  public getAuthorId(_index, author: IAuthor): number {
+    return author.id;
+  }
+
+  public isAuthorSelected(authorId: number, lol = false): boolean {
+    return this._value.some((id) => id === authorId);
+  }
+
+  public updateSelected(authorId: number, checked: boolean): void {
+    if (checked) {
+      this.value = [ ...this._value, authorId ].sort((a, b) => a - b);
+    } else {
+      this.value = this._value.filter((id) => id !== authorId);
+    }
+  }
+
   private _isValueChanged(oldValue): boolean {
-    return (
-      (!oldValue && !!this._value) ||
-      (!!oldValue && !this._value) ||
-      (!moment(oldValue).isSame(this._value))
-    );
+    return JSON.stringify(oldValue) !== JSON.stringify(this._value);
   }
 
   private _emitChange(): void {
     if (this._onChange) {
       this._onChange(this._value);
     }
-  }
-
-  private _areValidationErrorsChanged(oldValidationErrors): boolean {
-    return JSON.stringify(oldValidationErrors) !== JSON.stringify(this._validationErrors);
   }
 
   private _emitValidatorChange(): void {

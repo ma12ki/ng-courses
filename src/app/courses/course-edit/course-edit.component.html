@@ -48,9 +48,7 @@
   <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center stretch">
     <div fxFlex="2 2 40%" class="label-column">Authors</div>
     <div fxFlex="3 3 60%">
-      <md-input-container>
-        <input mdInput>
-      </md-input-container>
+      <c-authors-input [authors]="authors$ | async" name="authors" ngModel required></c-authors-input>
     </div>
   </div>
   <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center stretch">

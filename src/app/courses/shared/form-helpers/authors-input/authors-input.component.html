@@ -1,0 +1,7 @@
+<md-checkbox *ngFor="let author of authors; trackBy:getAuthorId"
+    [value]="author.id"
+    [checked]="isAuthorSelected(author.id)"
+    (change)="updateSelected(author.id, $event.checked)">
+  {{ author.name }}
+</md-checkbox>
+{{ value }}
