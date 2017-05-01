@@ -14,6 +14,9 @@
                maxlength="50"
                ngModel>
       </md-input-container>
+      <div *ngIf="courseEditForm?.controls?.title?.invalid && courseEditForm?.controls?.title?.dirty">
+        <md-error *ngIf="courseEditForm?.controls?.title?.errors?.required">This field is required</md-error>
+      </div>
     </div>
   </div>
   <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center stretch">
@@ -28,6 +31,9 @@
                   ngModel>
         </textarea>
       </md-input-container>
+      <div *ngIf="courseEditForm?.controls?.description?.invalid && courseEditForm?.controls?.description?.dirty">
+        <md-error *ngIf="courseEditForm?.controls?.description?.errors?.required">This field is required</md-error>
+      </div>
     </div>
   </div>
   <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center stretch">
@@ -39,16 +45,13 @@
   <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center stretch">
     <div fxFlex="2 2 40%" class="label-column">Duration</div>
     <div fxFlex="3 3 60%">
-      <md-input-container class="duration-input">
-        <input mdInput type="number" placeholder="minutes" [(ngModel)]="duration" name="duration">
-      </md-input-container>
-      <span>{{ duration | cCourseDuration }}</span>
+      <c-duration-input name="duration" ngModel required [control]="courseEditForm.controls.duration"></c-duration-input>
     </div>
   </div>
   <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center stretch">
     <div fxFlex="2 2 40%" class="label-column">Authors</div>
     <div fxFlex="3 3 60%">
-      <c-authors-input [authors]="authors$ | async" name="authors" ngModel required></c-authors-input>
+      <c-authors-input [authors]="authors$ | async" name="authors" ngModel required [control]="courseEditForm.controls.authors"></c-authors-input>
     </div>
   </div>
   <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center stretch">
