@@ -7,3 +7,10 @@
          (blur)="updateValue($event)">
 </md-input-container>
 <span>{{ value | cCourseDuration }}</span>
+
+<div *ngIf="control?.invalid && control?.dirty">
+  <md-error *ngIf="control?.errors?.invalidNumber; else requiredBlock">Invalid number</md-error>
+  <ng-template #requiredBlock>
+    <md-error *ngIf="control?.errors?.required">This input is required</md-error>
+  </ng-template>
+</div>

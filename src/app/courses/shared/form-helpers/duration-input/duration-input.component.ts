@@ -41,7 +41,7 @@ const DURATION_INPUT_VALIDATOR = {
 export class DurationInputComponent implements ControlValueAccessor, Validator {
   @Input() public control: FormControl;
 
-  private _value: number;
+  private _value: number = null;
   private _validationErrors: ValidationErrors;
   private _onChange: Function;
   private _onTouched: Function;
@@ -61,7 +61,7 @@ export class DurationInputComponent implements ControlValueAccessor, Validator {
     } else {
       this._value = null;
     }
-    this._validationErrors = (newValue && valid) ? { invalidNumber: true } : null;
+    this._validationErrors = (newValue && !valid) ? { invalidNumber: true } : null;
 
     if (this._isValueChanged(oldValue)) {
       this._emitChange();
@@ -84,9 +84,7 @@ export class DurationInputComponent implements ControlValueAccessor, Validator {
   }
 
   public writeValue(value: number): void {
-    if (value !== this.value) {
-      this.value = value;
-    }
+    this._value = value;
   }
 
   public registerOnChange(fn: Function): void {
@@ -102,7 +100,7 @@ export class DurationInputComponent implements ControlValueAccessor, Validator {
   }
 
   private _isValueChanged(oldValue): boolean {
-    return oldValue === this._value;
+    return oldValue !== this._value;
   }
 
   private _emitChange(): void {
