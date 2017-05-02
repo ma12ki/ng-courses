@@ -26,11 +26,10 @@ export class ToolbarComponent implements OnInit {
   }
 
   public search() {
-    console.log(this.searchTerm);
     this.onSearch.emit(this.searchTerm);
   }
 
   public goToAddNewCourse(): void {
-    this.router.navigate(['/new']);
+    this.router.navigate(['courses', 'new']);
   }
 }
