@@ -8,6 +8,7 @@ export interface ICourse {
   durationMinutes: number;
   description: string;
   topRated: boolean;
+  authors: number[];
 }
 
 export class Course implements ICourse {
@@ -21,6 +22,7 @@ export class Course implements ICourse {
     public durationMinutes: number = faker.random.number(300) + 30,
     public description: string = faker.Lorem.sentence(),
     public topRated: boolean = Math.random() > 0.5,
+    public authors: number[] = [faker.random.number(5), faker.random.number(5) + 5],
   ) {
     this.id = Course.idCounter++;
   }

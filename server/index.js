@@ -9,7 +9,8 @@ const mockCourse = (() => {
     date = moment(faker.Date.recent(500)).toDate().toISOString(),
     durationSeconds = faker.random.number(6000) + 300,
     description = faker.Lorem.sentence(),
-    topRated = Math.random() > 0.5
+    topRated = Math.random() > 0.5,
+    authors = [faker.random.number(5), faker.random.number(5) + 5]
   ) => {
     return {
       id: idCounter++,
@@ -18,6 +19,7 @@ const mockCourse = (() => {
       durationSeconds,
       description,
       topRated,
+      authors
     };
   };
 })();

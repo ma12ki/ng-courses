@@ -8,6 +8,7 @@ export interface ICourseDto {
   durationSeconds: number;
   description: string;
   topRated: boolean;
+  authors: number[]
 }
 
 export class CourseDto implements ICourseDto {
@@ -21,6 +22,7 @@ export class CourseDto implements ICourseDto {
     public durationSeconds: number = faker.random.number(6000) + 300,
     public description: string = faker.Lorem.sentence(),
     public topRated: boolean = Math.random() > 0.5,
+    public authors: number[] = [faker.random.number(5), faker.random.number(5) + 5],
   ) {
     this.id = CourseDto.idCounter++;
   }

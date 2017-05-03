@@ -108,6 +108,7 @@ export class CoursesService {
       durationMinutes: Math.ceil(courseDto.durationSeconds / 60),
       description: courseDto.description,
       topRated: courseDto.topRated,
+      authors: courseDto.authors,
     };
   }
 }
