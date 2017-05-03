@@ -77,9 +77,7 @@ export class DurationInputComponent implements ControlValueAccessor, Validator {
 
   public writeValue(modelValue: number): void {
     this.modelValue = modelValue;
-    if (this.modelValue) {
-      this.viewValue = '' + this.modelValue;
-    }
+    this.viewValue = this.modelValue ? '' + this.modelValue : null;
     this.cd.markForCheck();
   }
 
