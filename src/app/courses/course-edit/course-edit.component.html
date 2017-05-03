@@ -1,5 +1,5 @@
 <form novalidate #courseEditForm="ngForm"
-      (ngSubmit)="$event.preventDefault(); save()"
+      (ngSubmit)="$event.preventDefault(); save(courseEditForm.value)"
       fxLayout="column"
       fxLayoutGap="10px"
       fxLayoutAlign="start stretch">

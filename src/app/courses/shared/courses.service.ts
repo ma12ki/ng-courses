@@ -79,15 +79,34 @@ export class CoursesService {
     });
   }
 
-  public updateCourse(course: ICourse): void {
-    this._updates$.next((courses: ICourse[]) => {
-      return courses.map((currentCourse: ICourse) => {
-        if (currentCourse.id === course.id) {
-          currentCourse = course;
-        }
-        return course;
-      });
-    });
+  public saveCourse(course: ICourse): Observable<any> {
+    if (course.id == null) {
+      return this.createCourse(course);
+    } else {
+      return this.updateCourse(course);
+    }
+  }
+
+  public createCourse(course: ICourse): Observable<any> {
+    return this.http.post(
+      `${this.API_URL}${this._coursesEndpoint}`,
+      this.mapModelToDto(course),
+    );
+  }
+
+  public updateCourse(course: ICourse): Observable<any> {
+    return this.http.put(
+      `${this.API_URL}${this._coursesEndpoint}/${course.id}`,
+      this.mapModelToDto(course),
+    );
+    // this._updates$.next((courses: ICourse[]) => {
+    //   return courses.map((currentCourse: ICourse) => {
+    //     if (currentCourse.id === course.id) {
+    //       currentCourse = course;
+    //     }
+    //     return course;
+    //   });
+    // });
   }
 
   public deleteCourse$(id: number): Observable<any> {
@@ -109,6 +128,18 @@ export class CoursesService {
       description: courseDto.description,
       topRated: courseDto.topRated,
       authors: courseDto.authors,
+    };
+  }
+
+  private mapModelToDto(course: ICourse): ICourseDto {
+    return {
+      id: course.id,
+      title: course.title,
+      date: course.date.toISOString(),
+      durationSeconds: course.durationMinutes * 60,
+      description: course.description,
+      topRated: course.topRated,
+      authors: course.authors,
     };
   }
 }
