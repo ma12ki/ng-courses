@@ -28,12 +28,12 @@ export class AuthorizedHttp extends Http {
 
   public post(url: string, body: any, options: RequestOptionsArgs = {}): Observable<Response> {
     options = this.addAuthToken(options);
-    return super.post(url, options);
+    return super.post(url, body, options);
   }
 
   public put(url: string, body: any, options: RequestOptionsArgs = {}): Observable<Response> {
     options = this.addAuthToken(options);
-    return super.put(url, options);
+    return super.put(url, body, options);
   }
 
   public delete(url: string, options: RequestOptionsArgs = {}): Observable<Response> {
@@ -43,7 +43,7 @@ export class AuthorizedHttp extends Http {
 
   public patch(url: string, body: any, options: RequestOptionsArgs = {}): Observable<Response> {
     options = this.addAuthToken(options);
-    return super.patch(url, options);
+    return super.patch(url, body, options);
   }
 
   public head(url: string, options: RequestOptionsArgs = {}): Observable<Response> {
