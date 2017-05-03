@@ -3,6 +3,7 @@ import {
   OnInit,
   OnDestroy,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   forwardRef,
   Input,
 } from '@angular/core';
@@ -47,6 +48,10 @@ export class DurationInputComponent implements ControlValueAccessor, Validator {
   private _onTouched: Function;
   private _onValidatorChange: Function;
 
+  constructor(
+    private cd: ChangeDetectorRef,
+  ) {}
+
   public get value() {
     return this._value;
   }
@@ -84,7 +89,8 @@ export class DurationInputComponent implements ControlValueAccessor, Validator {
   }
 
   public writeValue(value: number): void {
-    this._value = value;
+    this.value = value;
+    this.cd.markForCheck();
   }
 
   public registerOnChange(fn: Function): void {

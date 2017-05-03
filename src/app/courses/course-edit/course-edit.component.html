@@ -12,7 +12,7 @@
                name="title"
                required
                maxlength="50"
-               ngModel>
+               [ngModel]="course.title">
       </md-input-container>
       <div *ngIf="courseEditForm?.controls?.title?.invalid && courseEditForm?.controls?.title?.dirty">
         <md-error *ngIf="courseEditForm?.controls?.title?.errors?.required">This field is required</md-error>
@@ -28,7 +28,7 @@
                   name="description"
                   required
                   maxlength="500"
-                  ngModel>
+                  [ngModel]="course.description">
         </textarea>
       </md-input-container>
       <div *ngIf="courseEditForm?.controls?.description?.invalid && courseEditForm?.controls?.description?.dirty">
@@ -39,13 +39,13 @@
   <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center stretch">
     <div fxFlex="2 2 40%" class="label-column">Date</div>
     <div fxFlex="3 3 60%">
-      <c-date-input name="date" ngModel required [control]="courseEditForm.controls.date"></c-date-input>
+      <c-date-input name="date" [ngModel]="course.date" required [control]="courseEditForm.controls.date"></c-date-input>
     </div>
   </div>
   <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center stretch">
     <div fxFlex="2 2 40%" class="label-column">Duration</div>
     <div fxFlex="3 3 60%">
-      <c-duration-input name="duration" ngModel required [control]="courseEditForm.controls.duration"></c-duration-input>
+      <c-duration-input name="duration" [ngModel]="course.durationMinutes" required [control]="courseEditForm.controls.duration"></c-duration-input>
     </div>
   </div>
   <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center stretch">
@@ -62,3 +62,7 @@
     </div>
   </div>
 </form>
+
+{{ courseEditForm.value | json }}
+
+{{ course | json }}

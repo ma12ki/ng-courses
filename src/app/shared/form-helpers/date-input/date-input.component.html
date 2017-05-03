@@ -1,7 +1,8 @@
 <md-input-container>
   <input mdInput
-         placeholder="DD/MM/YYYY"
-         (blur)="updateValue($event)">
+         [placeholder]="acceptedFormat"
+         [value]="viewValue"
+         (blur)="parseValue($event)">
 </md-input-container>
 
 <div *ngIf="control?.invalid && control?.dirty">

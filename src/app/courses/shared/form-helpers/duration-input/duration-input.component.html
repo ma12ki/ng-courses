@@ -4,6 +4,7 @@
          placeholder="minutes"
          min="1"
          step="1"
+         [value]="value"
          (blur)="updateValue($event)">
 </md-input-container>
 <span>{{ value | cCourseDuration }}</span>

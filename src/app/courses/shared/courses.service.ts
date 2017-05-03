@@ -43,11 +43,9 @@ export class CoursesService {
   }
 
   public getCourseById$(id: number): Observable<ICourse> {
-    return this._courses$.flatMap((courses: ICourse[]) => {
-      return Observable.of(courses.find((course: ICourse) => {
-        return course.id === id;
-      }));
-    });
+    return this.http.get(`${this.API_URL + this._coursesEndpoint}/${id}`)
+      .map((response) => response.json())
+      .map(this.mapDtoToModel);
   }
 
   public fetchCourses$(
@@ -69,7 +67,7 @@ export class CoursesService {
         this._totalCourses$.next(totalCourses);
       })
       .map((response) => response.json())
-      .map(this.mapDtoToModel)
+      .map((courseDtos: ICourseDto[]) => this.mapDtosToModel(courseDtos))
       .do((courses: ICourse[]) => {
         this._updates$.next((_) => courses);
       });
@@ -96,16 +94,20 @@ export class CoursesService {
     return this.http.delete(`${this.API_URL}${this._coursesEndpoint}/${id}`);
   }
 
-  private mapDtoToModel(courses: ICourseDto[]): ICourse[] {
-    return courses.map((courseDto) => {
-      return {
-        id: courseDto.id,
-        title: courseDto.title,
-        date: new Date(courseDto.date),
-        durationMinutes: Math.ceil(courseDto.durationSeconds / 60),
-        description: courseDto.description,
-        topRated: courseDto.topRated,
-      };
+  private mapDtosToModel(courseDtos: ICourseDto[]): ICourse[] {
+    return courseDtos.map((courseDto) => {
+      return this.mapDtoToModel(courseDto);
     });
+  }
+
+  private mapDtoToModel(courseDto: ICourseDto): ICourse {
+    return {
+      id: courseDto.id,
+      title: courseDto.title,
+      date: new Date(courseDto.date),
+      durationMinutes: Math.ceil(courseDto.durationSeconds / 60),
+      description: courseDto.description,
+      topRated: courseDto.topRated,
+    };
   }
 }

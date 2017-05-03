@@ -6,14 +6,25 @@ import { CoursesComponent } from './courses';
 import { CourseEditComponent } from './course-edit';
 
 const routes: Routes = [
-  { path: '', component: CoursesComponent, canActivate: [AuthGuardService] },
+  {
+    path: '',
+    component: CoursesComponent,
+    canActivate: [AuthGuardService],
+  },
   {
     path: 'new',
-    component:
-    CourseEditComponent,
+    component: CourseEditComponent,
     canActivate: [AuthGuardService],
     data: {
       label: 'New course',
+    },
+  },
+  {
+    path: ':id',
+    component: CourseEditComponent,
+    canActivate: [AuthGuardService],
+    data: {
+      label: 'Edit course',
     },
   },
 ];

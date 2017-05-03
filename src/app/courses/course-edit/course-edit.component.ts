@@ -1,3 +1,4 @@
+import { ChangeDetectorRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import {
   Component,
@@ -9,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 import { AuthorsService } from '../shared/authors.service';
+import { CoursesService } from '../shared/courses.service';
 import { ICourse } from '../shared/course.entity';
 import { IAuthor } from '../shared/author.entity';
 
@@ -19,6 +21,7 @@ import { IAuthor } from '../shared/author.entity';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CourseEditComponent implements OnInit, OnDestroy {
+  public course: ICourse | {} = {};
   public courseId: number;
   public authors$: Observable<IAuthor[]>;
   private _subscriptions: Subscription[] = [];
@@ -27,12 +30,17 @@ export class CourseEditComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private authorsService: AuthorsService,
+    private coursesService: CoursesService,
+    private cd: ChangeDetectorRef,
   ) {}
 
   public ngOnInit(): void {
     this._subscriptions.push(
       this.route.params.subscribe((params) => {
-        this.courseId = params.id == null ? null : +params.id;
+        if (params.id != null && !isNaN(+params.id)) {
+          this.courseId = +params.id;
+          this.getCourse();
+        }
       })
     );
     this._subscriptions.push(
@@ -51,5 +59,14 @@ export class CourseEditComponent implements OnInit, OnDestroy {
 
   public cancel(): void {
     this.router.navigate(['']);
+  }
+
+  private getCourse(): void {
+    this.coursesService.getCourseById$(this.courseId)
+      .toPromise()
+      .then((course) => {
+        this.course = course;
+        this.cd.markForCheck();
+      });
   }
 }
