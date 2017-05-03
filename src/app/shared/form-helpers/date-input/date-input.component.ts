@@ -85,9 +85,7 @@ export class DateInputComponent implements ControlValueAccessor, Validator {
 
   public writeValue(modelValue: Date): void {
     this.modelValue = modelValue;
-    if (this.modelValue) {
-      this.viewValue = moment(this.modelValue).format(this.acceptedFormat);
-    }
+    this.viewValue = this.modelValue ? moment(this.modelValue).format(this.acceptedFormat) : null;
     this.cd.markForCheck();
   }
 
