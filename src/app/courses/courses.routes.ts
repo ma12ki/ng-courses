@@ -7,7 +7,15 @@ import { CourseEditComponent } from './course-edit';
 
 const routes: Routes = [
   { path: '', component: CoursesComponent, canActivate: [AuthGuardService] },
-  { path: 'new', component: CourseEditComponent, canActivate: [AuthGuardService] },
+  {
+    path: 'new',
+    component:
+    CourseEditComponent,
+    canActivate: [AuthGuardService],
+    data: {
+      label: 'New course',
+    },
+  },
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forChild(routes);
