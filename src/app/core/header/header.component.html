@@ -1,7 +1,7 @@
 <md-toolbar color="primary">
     <md-icon class="logo">share</md-icon>
     <h2>ng-courses</h2>
-    <c-breadcrumbs *ngIf="isUserAuthenticated$ | async"></c-breadcrumbs>
+    <c-breadcrumbs></c-breadcrumbs>
     <span class="spacer"></span>
     <span *ngIf="userInfo$ | async">hello, {{ (userInfo$ | async).login }}</span>
     <c-nav></c-nav>

@@ -1,3 +1,10 @@
 <md-chip-list>
-  <md-chip>Courses</md-chip>
+  <span *ngFor="let crumb of breadcrumbs; let last = last">
+    <md-chip *ngIf="!last" color="accent">
+      <a [routerLink]="crumb.url">{{ crumb.label }}</a>
+    </md-chip>
+    <md-chip *ngIf="last">
+      {{ crumb.label }}
+    </md-chip>
+  </span>
 </md-chip-list>

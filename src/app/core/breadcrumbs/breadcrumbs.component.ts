@@ -1,16 +1,18 @@
 import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
+import {
   ActivatedRoute,
   ActivatedRouteSnapshot,
   Router,
   Params,
   NavigationEnd,
+  PRIMARY_OUTLET,
 } from '@angular/router';
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  ChangeDetectionStrategy,
-} from '@angular/core';
 import { Subscription } from 'rxjs/Rx';
 
 interface IBreadcrumb {
@@ -31,17 +33,15 @@ export class BreadcrumbsComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private cd: ChangeDetectorRef,
   ) {}
 
   public ngOnInit() {
     this._subscriptions.push(
       this.router.events.filter((event) => event instanceof NavigationEnd).subscribe((_event) => {
-        console.log(_event);
         this.updateBreadcrumbs();
       })
     );
-
-    // this.route..subscribe((f) => console.log('fragment', f));
   }
 
   public ngOnDestroy(): void {
@@ -50,36 +50,22 @@ export class BreadcrumbsComponent implements OnInit, OnDestroy {
 
   private updateBreadcrumbs() {
     this.breadcrumbs = [];
-    // console.log(this.route.snapshot.pathFromRoot.length);
-    // console.log(this.route.snapshot.pathFromRoot);
-    // console.log(this.route.snapshot);
     let currentRoute = this.route.snapshot;
-    console.log(currentRoute);
-    console.log(this.router.config);
-    console.log(this.router.routerState);
 
-    // while (currentRoute.parent) {
-    //   console.log(JSON.stringify(currentRoute.data));
-    //   // if (currentRoute.data.label) {
-    //   //   this.breadcrumbs.push({
-    //   //     label: currentRoute.data.label,
-    //   //     url: currentRoute.url[0].path,
-    //   //   });
-    //   // }
-    //   currentRoute = currentRoute.parent;
-    // }
+    while (currentRoute) {
+      if (currentRoute.data.label && currentRoute.url.length) {
+        this.breadcrumbs.push({
+          label: currentRoute.data.label,
+          url: [this.getCurrentUrlPath(), currentRoute.url[0].path].join('/'),
+        });
+      }
+      currentRoute = currentRoute.firstChild;
+    }
 
-    // this.route.snapshot.pathFromRoot
-    //   .forEach((route) => {
-    //     if (route.data.label) {
-    //       this.breadcrumbs.push({
-    //         label: route.data.label,
-    //         url: route.url[0].path,
-    //       });
-    //     }
-    //   });
-
-    console.log(this.breadcrumbs);
+    this.cd.markForCheck();
   }
 
+  private getCurrentUrlPath(): string {
+    return this.breadcrumbs.map((crumb) => crumb.url).join('/');
+  }
 }
