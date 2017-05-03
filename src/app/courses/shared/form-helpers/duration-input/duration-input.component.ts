@@ -42,7 +42,8 @@ const DURATION_INPUT_VALIDATOR = {
 export class DurationInputComponent implements ControlValueAccessor, Validator {
   @Input() public control: FormControl;
 
-  private _value: number = null;
+  public viewValue: string;
+  public modelValue: number;
   private _validationErrors: ValidationErrors;
   private _onChange: Function;
   private _onTouched: Function;
@@ -52,28 +53,34 @@ export class DurationInputComponent implements ControlValueAccessor, Validator {
     private cd: ChangeDetectorRef,
   ) {}
 
-  public get value() {
-    return this._value;
-  }
-
-  public set value(newValue: number) {
-    newValue = +newValue;
-    const valid = newValue && newValue > 0 && (Math.floor(newValue) === newValue);
-    const oldValue = this._value;
+  public parseValue(event) {
+    const oldViewValue = this.viewValue;
+    this.viewValue = event.target.value;
+    const newModelValue = +this.viewValue;
+    const valid = newModelValue && newModelValue > 0 &&
+      (Math.floor(newModelValue) === newModelValue);
     const oldValidationErrors = this._validationErrors ? { ...this._validationErrors } : null;
-    if (newValue && valid) {
-      this._value = newValue;
+    if (this.viewValue && valid) {
+      this.modelValue = newModelValue;
     } else {
-      this._value = null;
+      this.modelValue = null;
     }
-    this._validationErrors = (newValue && !valid) ? { invalidNumber: true } : null;
+    this._validationErrors = (newModelValue && !valid) ? { invalidNumber: true } : null;
 
-    if (this._isValueChanged(oldValue)) {
+    if (this._isViewValueChanged(oldViewValue)) {
       this._emitChange();
     }
     if (this._areValidationErrorsChanged(oldValidationErrors)) {
       this._emitValidatorChange();
     }
+  }
+
+  public writeValue(modelValue: number): void {
+    this.modelValue = modelValue;
+    if (this.modelValue) {
+      this.viewValue = '' + this.modelValue;
+    }
+    this.cd.markForCheck();
   }
 
   public registerOnValidatorChange(fn: () => void): void {
@@ -82,15 +89,6 @@ export class DurationInputComponent implements ControlValueAccessor, Validator {
 
   public validate(c: FormControl): ValidationErrors {
     return this._validationErrors;
-  }
-
-  public updateValue(event) {
-    this.value = event.target.value;
-  }
-
-  public writeValue(value: number): void {
-    this.value = value;
-    this.cd.markForCheck();
   }
 
   public registerOnChange(fn: Function): void {
@@ -105,13 +103,13 @@ export class DurationInputComponent implements ControlValueAccessor, Validator {
     throw new Error('Not implemented yet.');
   }
 
-  private _isValueChanged(oldValue): boolean {
-    return oldValue !== this._value;
+  private _isViewValueChanged(oldViewValue): boolean {
+    return oldViewValue !== this.viewValue;
   }
 
   private _emitChange(): void {
     if (this._onChange) {
-      this._onChange(this._value);
+      this._onChange(this.modelValue);
     }
   }
 

@@ -4,10 +4,10 @@
          placeholder="minutes"
          min="1"
          step="1"
-         [value]="value"
-         (blur)="updateValue($event)">
+         [value]="viewValue"
+         (blur)="parseValue($event)">
 </md-input-container>
-<span>{{ value | cCourseDuration }}</span>
+<span>{{ modelValue | cCourseDuration }}</span>
 
 <div *ngIf="control?.invalid && control?.dirty">
   <md-error *ngIf="control?.errors?.invalidNumber; else requiredBlock">Invalid number</md-error>
