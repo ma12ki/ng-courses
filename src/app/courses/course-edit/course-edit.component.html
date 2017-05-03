@@ -3,7 +3,12 @@
       fxLayout="column"
       fxLayoutGap="10px"
       fxLayoutAlign="start stretch">
-  <header class="form-title">New course</header>
+  <header class="form-title">
+    <span *ngIf="editMode; else newMode">Edit course</span>
+    <ng-template #newMode>
+      <span>New course</span>
+    </ng-template>
+  </header>
   <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center stretch">
     <div fxFlex="2 2 40%" class="label-column">Title</div>
     <div fxFlex="3 3 60%">

@@ -21,6 +21,7 @@ import { IAuthor } from '../shared/author.entity';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CourseEditComponent implements OnInit, OnDestroy {
+  public editMode = false;
   public course: ICourse | {} = {};
   public courseId: number;
   public authors$: Observable<IAuthor[]>;
@@ -39,7 +40,10 @@ export class CourseEditComponent implements OnInit, OnDestroy {
       this.route.params.subscribe((params) => {
         if (params.id != null && !isNaN(+params.id)) {
           this.courseId = +params.id;
+          this.editMode = true;
           this.getCourse();
+        } else {
+          this.editMode = false;
         }
       })
     );
