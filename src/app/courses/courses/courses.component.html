@@ -1,6 +1,6 @@
 <div fxLayout="column" fxLayoutAlign="stretch" class="courses-container">
     <c-toolbar fxFlex="nogrow" (onSearch)="onSearch($event)"></c-toolbar>
     <c-pagination [offset]="offset" [itemsPerPage]="itemsPerPage" [totalItems]="totalCourses$ | async" (newOffset)="fetchCourses($event)"></c-pagination>
-    <c-course-list fxFlex="grow" [courses]="courses$ | async | cOrderBy:'date'" (deleteCourse)="deleteCourse($event)"></c-course-list>
+    <c-course-list fxFlex="grow" [courses]="courses$ | async | cOrderBy:'date'" (deleteCourse)="deleteCourse($event)" (editCourse)="editCourse($event)"></c-course-list>
     <c-pagination [offset]="offset" [itemsPerPage]="itemsPerPage" [totalItems]="totalCourses$ | async" (newOffset)="fetchCourses($event)"></c-pagination>
 </div>

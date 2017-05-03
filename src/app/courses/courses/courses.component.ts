@@ -4,6 +4,7 @@ import {
   ChangeDetectionStrategy,
   OnDestroy,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { MdDialog } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/Rx';
@@ -33,6 +34,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
   private _subscriptions: Subscription[] = [];
 
   constructor(
+    private router: Router,
     private coursesService: CoursesService,
     private loaderService: LoaderService,
     private dialog: MdDialog,
@@ -72,6 +74,10 @@ export class CoursesComponent implements OnInit, OnDestroy {
         .do(() => this.loaderService.hide())
         .do(() => this.fetchCourses(0))
         .subscribe());
+  }
+
+  public editCourse(courseId: number): void {
+    this.router.navigate(['courses', courseId]);
   }
 
   public onSearch(searchTerm: string): void {

@@ -1,5 +1,5 @@
 <md-list *ngIf="courses.length; else empty">
-    <c-course-item *ngFor="let course of courses" [course]="course" (deleteCourse)="reemitDeleteCourse($event)"></c-course-item>
+    <c-course-item *ngFor="let course of courses" [course]="course" (deleteCourse)="reemitDeleteCourse($event)" (editCourse)="reemitEditCourse($event)"></c-course-item>
 </md-list>
 
 <ng-template #empty>

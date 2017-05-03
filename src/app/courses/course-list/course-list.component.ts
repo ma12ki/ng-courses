@@ -18,8 +18,13 @@ import { ICourse } from '../shared/course.entity';
 export class CourseListComponent {
   @Input() public courses: ICourse[];
   @Output() public deleteCourse = new EventEmitter<number>();
+  @Output() public editCourse = new EventEmitter<number>();
 
   public reemitDeleteCourse(courseId: number): void {
     this.deleteCourse.emit(courseId);
+  }
+
+  public reemitEditCourse(courseId: number): void {
+    this.editCourse.emit(courseId);
   }
 }
