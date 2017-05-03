@@ -2,6 +2,7 @@ import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AuthGuardService } from './../core/auth/auth-guard.service';
+import { CourseTitleResolver } from './course-title.resolver';
 import { CoursesComponent } from './courses';
 import { CourseEditComponent } from './course-edit';
 
@@ -23,8 +24,8 @@ const routes: Routes = [
     path: ':id',
     component: CourseEditComponent,
     canActivate: [AuthGuardService],
-    data: {
-      label: 'Edit course',
+    resolve: {
+      label: CourseTitleResolver,
     },
   },
 ];
