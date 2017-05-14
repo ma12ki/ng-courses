@@ -11,12 +11,15 @@ import { BehaviorSubject } from 'rxjs/Rx';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs';
 import * as moment from 'moment';
+import { Store } from '@ngrx/store';
 
 import { LoaderService } from './../../shared/loader/loader.service';
 import { CoursesService } from '../shared/courses.service';
 import { CourseFindPipe } from '../shared/course-helpers/course-find.pipe';
 import { ICourse } from '../shared/course.entity';
 import { CourseDeleteModalComponent } from '../course-delete-modal/';
+import { LoadStartAction } from '../courses.actions';
+import { coursesSelectors, State } from '../../app.reducer';
 
 @Component({
   selector: 'c-courses',
@@ -28,6 +31,9 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
   public courses$: Observable<ICourse[]>;
   public totalCourses$: Observable<number>;
+  public offset$: Observable<number>;
+  public itemsPerPage$: Observable<number>;
+  public searchTerm$: Observable<string>;
   public offset: number = 0;
   public itemsPerPage: number = 5;
   private searchTerm: string = '';
@@ -39,11 +45,18 @@ export class CoursesComponent implements OnInit, OnDestroy {
     private loaderService: LoaderService,
     private dialog: MdDialog,
     private courseFindPipe: CourseFindPipe,
-  ) { }
+    private store: Store<State>,
+  ) {
+    this.courses$ = this.store.select(coursesSelectors.getItems);
+    this.totalCourses$ = this.store.select(coursesSelectors.getTotalItems);
+    this.itemsPerPage$ = this.store.select(coursesSelectors.getItemsPerPage);
+    this.offset$ = this.store.select(coursesSelectors.getOffset);
+    this.searchTerm$ = this.store.select(coursesSelectors.getSearchTerm);
+  }
 
   public ngOnInit(): void {
-    this.initTotalCourses();
-    this.initCourses();
+    // this.initTotalCourses();
+    // this.initCourses();
     this.fetchCourses();
   }
 
@@ -55,13 +68,8 @@ export class CoursesComponent implements OnInit, OnDestroy {
     this.courses$ = this.coursesService.courses$;
   }
 
-  public fetchCourses(offset: number = 0): void {
-    this.offset = offset;
-    this.loaderService.show();
-    this._subscriptions.push(
-      this.coursesService.fetchCourses$(offset, this.itemsPerPage, this.searchTerm)
-        .do(() => this.loaderService.hide())
-        .subscribe());
+  public fetchCourses(offset = 0, searchTerm = ''): void {
+    this.store.dispatch(new LoadStartAction({ offset, searchTerm }));
   }
 
   public deleteCourse(courseId: number): void {
@@ -81,8 +89,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
   }
 
   public onSearch(searchTerm: string): void {
-    this.searchTerm = searchTerm;
-    this.fetchCourses(0);
+    this.fetchCourses(0, searchTerm);
   }
 
   public ngOnDestroy(): void {
