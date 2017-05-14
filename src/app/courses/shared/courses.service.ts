@@ -126,14 +126,6 @@ export class CoursesService {
       `${this.API_URL}${this._coursesEndpoint}/${course.id}`,
       this.mapModelToDto(course),
     );
-    // this._updates$.next((courses: ICourse[]) => {
-    //   return courses.map((currentCourse: ICourse) => {
-    //     if (currentCourse.id === course.id) {
-    //       currentCourse = course;
-    //     }
-    //     return course;
-    //   });
-    // });
   }
 
   public deleteCourse$(id: number): Observable<any> {

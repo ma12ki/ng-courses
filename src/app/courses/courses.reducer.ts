@@ -24,7 +24,7 @@ export const initialState: State = {
 export function reducer(state = initialState, action: courses.Actions): State {
   switch (action.type) {
     case courses.LOAD_START: {
-      const { itemsPerPage, offset, searchTerm } = action.payload;
+      const { itemsPerPage, offset, searchTerm } = (action as courses.LoadStartAction).payload;
 
       return {
         ...state,
@@ -35,6 +35,7 @@ export function reducer(state = initialState, action: courses.Actions): State {
         searchTerm,
       };
     }
+    case courses.SAVE_START:
     case courses.REMOVE_START: {
       return {
         ...state,
@@ -43,7 +44,7 @@ export function reducer(state = initialState, action: courses.Actions): State {
       };
     }
     case courses.LOAD_SUCCESS: {
-      const { items, totalItems } = action.payload;
+      const { items, totalItems } = (action as courses.LoadSuccessAction).payload;
 
       return {
         ...state,
@@ -53,6 +54,7 @@ export function reducer(state = initialState, action: courses.Actions): State {
         error: null,
       };
     }
+    case courses.SAVE_SUCCESS:
     case courses.REMOVE_SUCCESS: {
       return {
         ...state,
@@ -65,7 +67,7 @@ export function reducer(state = initialState, action: courses.Actions): State {
       return {
         ...state,
         loading: false,
-        error: action.payload,
+        error: (action as courses.LoadErrorAction).payload,
       };
     }
     default: {

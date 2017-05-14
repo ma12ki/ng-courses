@@ -2,7 +2,6 @@
 import { Action } from '@ngrx/store';
 
 import { ICourse } from './shared/course.entity';
-// import { IUserCredentials, IUser } from '../../shared/user.entity';
 
 const ACTION_PREFIX = '[COURSES]';
 
@@ -10,13 +9,9 @@ export const LOAD_START = `${ACTION_PREFIX}LOAD_START`;
 export const LOAD_SUCCESS = `${ACTION_PREFIX}LOAD_SUCCESS`;
 export const LOAD_ERROR = `${ACTION_PREFIX}LOAD_ERROR`;
 
-export const ADD_START = `${ACTION_PREFIX}ADD_START`;
-export const ADD_SUCCESS = `${ACTION_PREFIX}ADD_SUCCESS`;
-export const ADD_ERROR = `${ACTION_PREFIX}ADD_ERROR`;
-
-export const EDIT_START = `${ACTION_PREFIX}EDIT_START`;
-export const EDIT_SUCCESS = `${ACTION_PREFIX}EDIT_SUCCESS`;
-export const EDIT_ERROR = `${ACTION_PREFIX}EDIT_ERROR`;
+export const SAVE_START = `${ACTION_PREFIX}SAVE_START`;
+export const SAVE_SUCCESS = `${ACTION_PREFIX}SAVE_SUCCESS`;
+export const SAVE_ERROR = `${ACTION_PREFIX}SAVE_ERROR`;
 
 export const REMOVE_START = `${ACTION_PREFIX}REMOVE_START`;
 export const REMOVE_SUCCESS = `${ACTION_PREFIX}REMOVE_SUCCESS`;
@@ -42,13 +37,11 @@ export class LoadStartAction implements Action {
     payload.searchTerm = payload.searchTerm || '';
   }
 }
-
 export class LoadSuccessAction implements Action {
   public readonly type = LOAD_SUCCESS;
 
   constructor(public payload: { items: ICourse[], totalItems: number }) { }
 }
-
 export class LoadErrorAction implements Action {
   public readonly type = LOAD_ERROR;
 
@@ -60,30 +53,30 @@ export class RemoveStartAction implements Action {
 
   constructor(public payload: number) { }
 }
-
 export class RemoveSuccessAction implements Action {
   public readonly type = REMOVE_SUCCESS;
 }
-
 export class RemoveErrorAction implements Action {
   public readonly type = REMOVE_ERROR;
 
   constructor(public payload: any) { }
 }
 
-// export class LogoutStartAction implements Action {
-//   public readonly type = LOGOUT_START;
-// }
+export class SaveStartAction implements Action {
+  public readonly type = SAVE_START;
 
-// export class LogoutSuccessAction implements Action {
-//   public readonly type = LOGOUT_SUCCESS;
-// }
+  constructor(public payload: ICourse) { }
+}
+export class SaveSuccessAction implements Action {
+  public readonly type = SAVE_SUCCESS;
 
-// export class LogoutErrorAction implements Action {
-//   public readonly type = LOGOUT_ERROR;
+  constructor(public payload: ICourse) { }
+}
+export class SaveErrorAction implements Action {
+  public readonly type = SAVE_ERROR;
 
-//   constructor(public payload: any) { }
-// }
+  constructor(public payload: any) { }
+}
 
 export type Actions
   = LoadStartAction
@@ -91,4 +84,7 @@ export type Actions
   | LoadErrorAction
   | RemoveStartAction
   | RemoveSuccessAction
-  | RemoveErrorAction;
+  | RemoveErrorAction
+  | SaveStartAction
+  | SaveSuccessAction
+  | SaveErrorAction;

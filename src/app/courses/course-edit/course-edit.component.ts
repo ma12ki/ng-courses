@@ -1,3 +1,4 @@
+import { Store } from '@ngrx/store';
 import { ChangeDetectorRef } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import {
@@ -14,6 +15,8 @@ import { AuthorsService } from '../shared/authors.service';
 import { CoursesService } from '../shared/courses.service';
 import { ICourse } from '../shared/course.entity';
 import { IAuthor } from '../shared/author.entity';
+import { State } from '../../app.reducer';
+import { SaveStartAction } from '../courses.actions';
 
 interface IFormValue {
   title: string;
@@ -43,6 +46,7 @@ export class CourseEditComponent implements OnInit, OnDestroy {
     private authorsService: AuthorsService,
     private coursesService: CoursesService,
     private cd: ChangeDetectorRef,
+    private store: Store<State>,
   ) {}
 
   public ngOnInit(): void {
@@ -78,12 +82,7 @@ export class CourseEditComponent implements OnInit, OnDestroy {
       topRated: (this.course as any).topRated,
       authors: formValue.authors,
     };
-    this.loaderService.show();
-    this.coursesService.saveCourse(course)
-      .subscribe(() => {
-        this.loaderService.hide();
-        this.navigateBack();
-      });
+    this.store.dispatch(new SaveStartAction(course));
   }
 
   public cancel(): void {

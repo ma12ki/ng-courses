@@ -1,3 +1,4 @@
+import { ICourse } from './shared/course.entity';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
@@ -44,4 +45,21 @@ export class CoursesEffects {
   public afterRemove$ = this.actions$
     .ofType(courses.REMOVE_SUCCESS)
     .map(() => new courses.LoadStartAction({ offset: 0 }));
+
+  @Effect()
+  public save$ = this.actions$
+    .ofType(courses.SAVE_START)
+    .map(toPayload)
+    .do(() => this.loaderService.show())
+    .switchMap((course: ICourse) => this.coursesService.saveCourse(course))
+      .map((res: ICourse) => new courses.SaveSuccessAction(res))
+      .catch((err) => Observable.of(new courses.SaveErrorAction(err))
+    )
+    .do(() => this.loaderService.hide());
+
+  @Effect()
+  public afterSave$ = this.actions$
+    .ofType(courses.SAVE_SUCCESS)
+    .do(() => this.router.navigateByUrl(''))
+    .map(() => new courses.LoadStartAction({}));
 }
