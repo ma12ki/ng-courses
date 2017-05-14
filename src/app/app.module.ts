@@ -20,8 +20,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { reducer, State, authSelectors } from './app.reducer';
-import { AuthEffects } from './core/auth/auth.effects';
 import * as authStorage from './core/auth/auth.storage';
+import { AuthEffects } from './core/auth/auth.effects';
+import { CoursesEffects } from './courses/courses.effects';
 
 /*
  * Platform and Environment providers/directives/pipes

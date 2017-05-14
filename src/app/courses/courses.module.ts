@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
+import { EffectsModule } from '@ngrx/effects';
 
 import { CoursesSharedModule } from './shared/shared.module';
 import { routing } from './courses.routes';
+import { CoursesEffects } from './courses.effects';
 
 import { CourseTitleResolver } from './course-title.resolver';
 import { CoursesComponent } from './courses';
@@ -15,6 +17,7 @@ import { ToolbarComponent } from './toolbar';
   imports: [
     CoursesSharedModule,
     routing,
+    EffectsModule.run(CoursesEffects),
   ],
   declarations: [
     CoursesComponent,
