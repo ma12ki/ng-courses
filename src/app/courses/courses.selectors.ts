@@ -7,3 +7,4 @@ export const getOffset = (state: State) => state.offset;
 export const getSearchTerm = (state: State) => state.searchTerm;
 export const getError = (state: State) => state.error;
 export const isLoading = (state: State) => state.loading;
+export const getCourseToEdit = (state: State) => state.courseToEdit;

@@ -53,4 +53,7 @@ export const coursesSelectors = {
   getSearchTerm(state: State) {
     return compose(coursesSelector.getSearchTerm, getCoursesState)(state);
   },
+  getCourseToEdit(state: State) {
+    return compose(coursesSelector.getCourseToEdit, getCoursesState)(state);
+  },
 };

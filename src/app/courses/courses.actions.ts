@@ -17,6 +17,10 @@ export const REMOVE_START = `${ACTION_PREFIX}REMOVE_START`;
 export const REMOVE_SUCCESS = `${ACTION_PREFIX}REMOVE_SUCCESS`;
 export const REMOVE_ERROR = `${ACTION_PREFIX}REMOVE_ERROR`;
 
+export const LOAD_ONE_START = `${ACTION_PREFIX}LOAD_ONE_START`;
+export const LOAD_ONE_SUCCESS = `${ACTION_PREFIX}LOAD_ONE_SUCCESS`;
+export const LOAD_ONE_ERROR = `${ACTION_PREFIX}LOAD_ONE_ERROR`;
+
 export interface IListParams {
   itemsPerPage?: number;
   offset?: number;
@@ -78,6 +82,22 @@ export class SaveErrorAction implements Action {
   constructor(public payload: any) { }
 }
 
+export class LoadOneStartAction implements Action {
+  public readonly type = LOAD_ONE_START;
+
+  constructor(public payload: number | string) { }
+}
+export class LoadOneSuccessAction implements Action {
+  public readonly type = LOAD_ONE_SUCCESS;
+
+  constructor(public payload: ICourse) { }
+}
+export class LoadOneErrorAction implements Action {
+  public readonly type = LOAD_ONE_ERROR;
+
+  constructor(public payload: any) { }
+}
+
 export type Actions
   = LoadStartAction
   | LoadSuccessAction
@@ -87,4 +107,7 @@ export type Actions
   | RemoveErrorAction
   | SaveStartAction
   | SaveSuccessAction
-  | SaveErrorAction;
+  | SaveErrorAction
+  | LoadOneStartAction
+  | LoadOneSuccessAction
+  | LoadOneErrorAction;

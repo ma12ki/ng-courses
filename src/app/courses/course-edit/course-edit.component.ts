@@ -15,8 +15,8 @@ import { AuthorsService } from '../shared/authors.service';
 import { CoursesService } from '../shared/courses.service';
 import { ICourse } from '../shared/course.entity';
 import { IAuthor } from '../shared/author.entity';
-import { State } from '../../app.reducer';
-import { SaveStartAction } from '../courses.actions';
+import { coursesSelectors, State } from '../../app.reducer';
+import { LoadOneStartAction, SaveStartAction } from '../courses.actions';
 
 interface IFormValue {
   title: string;
@@ -42,9 +42,7 @@ export class CourseEditComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private loaderService: LoaderService,
     private authorsService: AuthorsService,
-    private coursesService: CoursesService,
     private cd: ChangeDetectorRef,
     private store: Store<State>,
   ) {}
@@ -55,12 +53,18 @@ export class CourseEditComponent implements OnInit, OnDestroy {
         if (params.id != null && !isNaN(+params.id)) {
           this.courseId = +params.id;
           this.editMode = true;
-          this.getCourse();
         } else {
           this.courseId = null;
           this.editMode = false;
         }
+        this.store.dispatch(new LoadOneStartAction(params.id));
       })
+    );
+    this._subscriptions.push(
+      this.store.select(coursesSelectors.getCourseToEdit)
+        .subscribe((course) => {
+          this.course = course;
+        })
     );
     this._subscriptions.push(
       this.authorsService.fetchAuthors$().subscribe(null, console.error)
@@ -91,19 +95,5 @@ export class CourseEditComponent implements OnInit, OnDestroy {
 
   private navigateBack(): void {
     this.router.navigate(['']);
-  }
-
-  private getCourse(): void {
-    this.loaderService.show();
-    this.coursesService.getCourseById$(this.courseId)
-      .toPromise()
-      .then((course) => {
-        this.loaderService.hide();
-        this.course = course;
-        this.cd.markForCheck();
-      }).catch((err) => {
-        this.loaderService.hide();
-        throw err;
-      });
   }
 }

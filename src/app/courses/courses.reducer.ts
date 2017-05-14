@@ -8,6 +8,7 @@ export interface State {
   itemsPerPage: number;
   offset: number;
   searchTerm: string;
+  courseToEdit: ICourse | {};
   error: any;
 };
 
@@ -18,6 +19,7 @@ export const initialState: State = {
   itemsPerPage: 5,
   offset: 0,
   searchTerm: '',
+  courseToEdit: {},
   error: null,
 };
 
@@ -35,6 +37,7 @@ export function reducer(state = initialState, action: courses.Actions): State {
         searchTerm,
       };
     }
+    case courses.LOAD_ONE_START:
     case courses.SAVE_START:
     case courses.REMOVE_START: {
       return {
@@ -54,6 +57,12 @@ export function reducer(state = initialState, action: courses.Actions): State {
         error: null,
       };
     }
+    case courses.LOAD_ONE_SUCCESS: {
+      return {
+        ...state,
+        courseToEdit: (action as courses.LoadOneSuccessAction).payload,
+      };
+    }
     case courses.SAVE_SUCCESS:
     case courses.REMOVE_SUCCESS: {
       return {
@@ -63,6 +72,7 @@ export function reducer(state = initialState, action: courses.Actions): State {
       };
     }
     case courses.LOAD_ERROR:
+    case courses.LOAD_ONE_ERROR:
     case courses.REMOVE_ERROR: {
       return {
         ...state,

@@ -62,4 +62,20 @@ export class CoursesEffects {
     .ofType(courses.SAVE_SUCCESS)
     .do(() => this.router.navigateByUrl(''))
     .map(() => new courses.LoadStartAction({}));
+
+  @Effect()
+  public loadOne$ = this.actions$
+    .ofType(courses.LOAD_ONE_START)
+    .map(toPayload)
+    .do(() => this.loaderService.show())
+    .switchMap((courseId: number | string) => {
+        if (courseId != null && !isNaN(+courseId)) {
+          return this.coursesService.getCourseById$(+courseId);
+        }
+        return Observable.of({});
+      })
+      .map((res: ICourse) => new courses.LoadOneSuccessAction(res))
+      .catch((err) => Observable.of(new courses.LoadOneErrorAction(err))
+    )
+    .do(() => this.loaderService.hide());
 }
