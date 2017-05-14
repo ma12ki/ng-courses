@@ -4,9 +4,11 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
+import { Store } from '@ngrx/store';
 
 import { IUser } from './../../entities/user';
-import { AuthService } from '../auth/auth.service';
+import { authSelectors, State } from '../../app.reducer';
+import { LogoutStartAction } from '../auth/auth.actions';
 
 @Component({
   selector: 'c-header',
@@ -14,22 +16,18 @@ import { AuthService } from '../auth/auth.service';
   templateUrl: './header.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   public isUserAuthenticated$: Observable<boolean>;
   public userInfo$: Observable<IUser>;
 
   constructor(
-    private authService: AuthService,
+    private store: Store<State>,
   ) {
-    this.isUserAuthenticated$ = authService.isAuthenticated$;
-    this.userInfo$ = authService.userInfo$;
-  }
-
-  public ngOnInit() {
-    console.log('HeaderComponent init');
+    this.isUserAuthenticated$ = this.store.select(authSelectors.isAuthenticated);
+    this.userInfo$ = this.store.select(authSelectors.getUser);
   }
 
   public logout() {
-    this.authService.logout();
+    this.store.dispatch(new LogoutStartAction());
   }
 }
