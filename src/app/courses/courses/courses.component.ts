@@ -18,7 +18,7 @@ import { CoursesService } from '../shared/courses.service';
 import { CourseFindPipe } from '../shared/course-helpers/course-find.pipe';
 import { ICourse } from '../shared/course.entity';
 import { CourseDeleteModalComponent } from '../course-delete-modal/';
-import { LoadStartAction } from '../courses.actions';
+import { LoadStartAction, RemoveStartAction } from '../courses.actions';
 import { coursesSelectors, State } from '../../app.reducer';
 
 @Component({
@@ -77,10 +77,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
     this._subscriptions.push(
       dialogRef.afterClosed()
         .filter((result) => result)
-        .do(() => this.loaderService.show())
-        .switchMap(() => this.coursesService.deleteCourse$(courseId))
-        .do(() => this.loaderService.hide())
-        .do(() => this.fetchCourses(0))
+        .do(() => this.store.dispatch(new RemoveStartAction(courseId)))
         .subscribe());
   }
 

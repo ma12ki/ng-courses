@@ -35,6 +35,13 @@ export function reducer(state = initialState, action: courses.Actions): State {
         searchTerm,
       };
     }
+    case courses.REMOVE_START: {
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    }
     case courses.LOAD_SUCCESS: {
       const { items, totalItems } = action.payload;
 
@@ -46,7 +53,15 @@ export function reducer(state = initialState, action: courses.Actions): State {
         error: null,
       };
     }
-    case courses.LOAD_ERROR: {
+    case courses.REMOVE_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+        error: null,
+      };
+    }
+    case courses.LOAD_ERROR:
+    case courses.REMOVE_ERROR: {
       return {
         ...state,
         loading: false,

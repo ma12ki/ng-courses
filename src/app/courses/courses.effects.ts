@@ -8,6 +8,7 @@ import { IListParams, IListResult } from './courses.actions';
 import { CoursesService } from './shared/courses.service';
 import { LoaderService } from '../shared/loader';
 
+// tslint:disable:member-ordering
 @Injectable()
 export class CoursesEffects {
   constructor(
@@ -17,7 +18,6 @@ export class CoursesEffects {
     private router: Router,
   ) { }
 
-  // tslint:disable-next-line:member-ordering
   @Effect()
   public load$ = this.actions$
     .ofType(courses.LOAD_START)
@@ -28,4 +28,20 @@ export class CoursesEffects {
       .catch((err) => Observable.of(new courses.LoadErrorAction(err))
     )
     .do(() => this.loaderService.hide());
+
+  @Effect()
+  public remove$ = this.actions$
+    .ofType(courses.REMOVE_START)
+    .map(toPayload)
+    .do(() => this.loaderService.show())
+    .switchMap((courseId: number) => this.coursesService.deleteCourse$(courseId))
+      .map(() => new courses.RemoveSuccessAction())
+      .catch((err) => Observable.of(new courses.RemoveErrorAction(err))
+    )
+    .do(() => this.loaderService.hide());
+
+  @Effect()
+  public afterRemove$ = this.actions$
+    .ofType(courses.REMOVE_SUCCESS)
+    .map(() => new courses.LoadStartAction({ offset: 0 }));
 }

@@ -55,6 +55,22 @@ export class LoadErrorAction implements Action {
   constructor(public payload: any) { }
 }
 
+export class RemoveStartAction implements Action {
+  public readonly type = REMOVE_START;
+
+  constructor(public payload: number) { }
+}
+
+export class RemoveSuccessAction implements Action {
+  public readonly type = REMOVE_SUCCESS;
+}
+
+export class RemoveErrorAction implements Action {
+  public readonly type = REMOVE_ERROR;
+
+  constructor(public payload: any) { }
+}
+
 // export class LogoutStartAction implements Action {
 //   public readonly type = LOGOUT_START;
 // }
@@ -72,4 +88,7 @@ export class LoadErrorAction implements Action {
 export type Actions
   = LoadStartAction
   | LoadSuccessAction
-  | LoadErrorAction;
+  | LoadErrorAction
+  | RemoveStartAction
+  | RemoveSuccessAction
+  | RemoveErrorAction;
