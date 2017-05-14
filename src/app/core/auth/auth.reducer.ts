@@ -9,17 +9,11 @@ export interface State {
   error: any;
 };
 
-const USER_STORAGE_KEY = 'AUTH_USER';
-const TOKEN_STORAGE_KEY = 'AUTH_TOKEN';
-
-const storedUser: IUser = JSON.parse(localStorage.getItem(USER_STORAGE_KEY));
-const storedToken = localStorage.getItem(TOKEN_STORAGE_KEY);
-
 export const initialState: State = {
   loading: false,
-  isAuthenticated: !!storedUser,
-  user: storedUser,
-  token: storedToken,
+  isAuthenticated: false,
+  user: null,
+  token: null,
   error: null,
 };
 
@@ -38,6 +32,7 @@ export function reducer(state = initialState, action: auth.Actions): State {
 
       return {
         ...state,
+        isAuthenticated: true,
         user,
         token,
         error: null,
@@ -47,16 +42,15 @@ export function reducer(state = initialState, action: auth.Actions): State {
     case auth.LOGOUT_ERROR: {
       return {
         ...state,
+        loading: false,
         error: (action as auth.LoginErrorAction).payload,
       };
     }
     case auth.LOGOUT_SUCCESS: {
       return {
-        ...state,
-        user: null,
-        token: null,
+        ...initialState,
+        loading: false,
         error: null,
-        isAuthenticated: false,
       };
     }
     default: {

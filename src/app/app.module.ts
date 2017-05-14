@@ -19,7 +19,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
-import { reducer, State } from './app.reducer';
+import { reducer, State, authSelectors } from './app.reducer';
 import { AuthEffects } from './core/auth/auth.effects';
 import * as authStorage from './core/auth/auth.storage';
 
