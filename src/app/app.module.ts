@@ -13,9 +13,15 @@ import {
   PreloadAllModules
 } from '@angular/router';
 import 'hammerjs';
+import { Store, StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
+import { reducer, State } from './app.reducer';
+import { AuthEffects } from './core/auth/auth.effects';
+import * as authStorage from './core/auth/auth.storage';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -42,6 +48,10 @@ type StoreType = {
   disposeOldHosts: () => void
 };
 
+const initialState = {
+  auth: authStorage.retrieve(),
+};
+
 /**
  * `AppModule` is the main entry point into Angular2's bootstraping process
  */
@@ -53,6 +63,9 @@ type StoreType = {
   imports: [ // import Angular's modules
     BrowserModule,
     RouterModule.forRoot(ROUTES),
+    StoreModule.provideStore(reducer, initialState),
+    StoreDevtoolsModule.instrumentOnlyWithExtension(),
+    EffectsModule.run(AuthEffects),
     CoreModule,
     SharedModule.forRoot(),
   ],
@@ -65,8 +78,13 @@ export class AppModule {
 
   constructor(
     public appRef: ApplicationRef,
-    public appState: AppState
-  ) {}
+    public appState: AppState,
+    public store: Store<State>,
+  ) {
+    this.store.subscribe((state) => {
+      authStorage.store(state.auth);
+    });
+  }
 
   public hmrOnInit(store: StoreType) {
     if (!store || !store.state) {

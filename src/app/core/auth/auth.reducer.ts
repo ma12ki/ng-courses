@@ -56,6 +56,7 @@ export function reducer(state = initialState, action: auth.Actions): State {
         user: null,
         token: null,
         error: null,
+        isAuthenticated: false,
       };
     }
     default: {

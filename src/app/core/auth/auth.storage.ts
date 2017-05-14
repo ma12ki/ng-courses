@@ -1,10 +1,10 @@
 import { State } from './auth.reducer';
 
-const AUTH_STORE_KEY = 'AUTH_STORE';
+const AUTH_STATE_KEY = 'AUTH_STATE';
 
-export const store = (authState: State): void => {
+export const store = (state: State): void => {
   try {
-    localStorage.setItem(AUTH_STORE_KEY, JSON.stringify(authState));
+    localStorage.setItem(AUTH_STATE_KEY, JSON.stringify(state));
   } catch (e) {
     console.log(e);
   }
@@ -12,7 +12,11 @@ export const store = (authState: State): void => {
 
 export const retrieve = (): State => {
   try {
-    return JSON.parse(localStorage.getItem(AUTH_STORE_KEY));
+    const serialized = localStorage.getItem(AUTH_STATE_KEY);
+    if (serialized != null) {
+      return JSON.parse(serialized);
+    }
+    return undefined;
   } catch (e) {
     console.log(e);
     return undefined;
@@ -21,7 +25,7 @@ export const retrieve = (): State => {
 
 export const remove = (): void => {
   try {
-    localStorage.removeItem(AUTH_STORE_KEY);
+    localStorage.removeItem(AUTH_STATE_KEY);
   } catch (e) {
     console.log(e);
   }
