@@ -1,3 +1,4 @@
+import { IListParams, IListResult } from '../courses.actions';
 import { Injectable, Inject } from '@angular/core';
 import { ResponseContentType, RequestOptionsArgs, Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -70,6 +71,32 @@ export class CoursesService {
       .map((courseDtos: ICourseDto[]) => this.mapDtosToModel(courseDtos))
       .do((courses: ICourse[]) => {
         this._updates$.next((_) => courses);
+      });
+  }
+
+  public reduxFetchCourses$(params: IListParams): Observable<IListResult> {
+    const options: RequestOptionsArgs = {
+      responseType: ResponseContentType.Json,
+      params: {
+        _start: params.offset,
+        _limit: params.itemsPerPage,
+        title_like: params.searchTerm,
+      },
+    };
+    const ret: IListResult = {
+      items: [],
+      totalItems: 0,
+    };
+    return this.http.get(this.API_URL + this._coursesEndpoint, options)
+      .do((response) => {
+        const totalItems = +response.headers.get('x-total-count');
+        ret.totalItems = totalItems;
+      })
+      .map((response) => response.json())
+      .map((courseDtos: ICourseDto[]) => this.mapDtosToModel(courseDtos))
+      .map((courses: ICourse[]) => {
+        ret.items = courses;
+        return ret;
       });
   }
 
