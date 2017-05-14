@@ -18,30 +18,12 @@ interface ICourseOperation extends Function {
 
 @Injectable()
 export class CoursesService {
-  private _courses$: Observable<ICourse[]>;
-  private _updates$: BehaviorSubject<any> = new BehaviorSubject<any>((i) => i);
-  private _totalCourses$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   private _coursesEndpoint: string = 'courses';
 
   constructor(
     @Inject(API_URL) private API_URL: string,
     private http: Http,
-  ) {
-    this._courses$ = this._updates$
-      .scan((courses: ICourse[], operation: ICourseOperation) => {
-        return operation(courses);
-      }, [])
-      .publishReplay(1)
-      .refCount();
-  }
-
-  public get courses$(): Observable<ICourse[]> {
-    return this._courses$;
-  }
-
-  public get totalCourses$(): Observable<number> {
-    return this._totalCourses$;
-  }
+  ) { }
 
   public getCourseById$(id: number): Observable<ICourse> {
     return this.http.get(`${this.API_URL + this._coursesEndpoint}/${id}`)
@@ -49,32 +31,7 @@ export class CoursesService {
       .map(this.mapDtoToModel);
   }
 
-  public fetchCourses$(
-    start: number = 0,
-    limit: number = 5,
-    searchTerm: string = ''
-  ): Observable<any> {
-    const options: RequestOptionsArgs = {
-      responseType: ResponseContentType.Json,
-      params: {
-        _start: start,
-        _limit: limit,
-        title_like: searchTerm,
-      },
-    };
-    return this.http.get(this.API_URL + this._coursesEndpoint, options)
-      .do((response) => {
-        const totalCourses = +response.headers.get('x-total-count');
-        this._totalCourses$.next(totalCourses);
-      })
-      .map((response) => response.json())
-      .map((courseDtos: ICourseDto[]) => this.mapDtosToModel(courseDtos))
-      .do((courses: ICourse[]) => {
-        this._updates$.next((_) => courses);
-      });
-  }
-
-  public reduxFetchCourses$(params: IListParams): Observable<IListResult> {
+  public fetchCourses$(params: IListParams): Observable<IListResult> {
     const options: RequestOptionsArgs = {
       responseType: ResponseContentType.Json,
       params: {
@@ -98,12 +55,6 @@ export class CoursesService {
         ret.items = courses;
         return ret;
       });
-  }
-
-  public addCourse(course): void {
-    this._updates$.next((courses: ICourse[]) => {
-      return courses.concat(new Course());
-    });
   }
 
   public saveCourse(course: ICourse): Observable<any> {

@@ -24,7 +24,7 @@ export class CoursesEffects {
     .ofType(courses.LOAD_START)
     .map(toPayload)
     .do(() => this.loaderService.show())
-    .switchMap((params: IListParams) => this.coursesService.reduxFetchCourses$(params))
+    .switchMap((params: IListParams) => this.coursesService.fetchCourses$(params))
       .map((res: IListResult) => new courses.LoadSuccessAction(res))
       .catch((err) => Observable.of(new courses.LoadErrorAction(err))
     )
