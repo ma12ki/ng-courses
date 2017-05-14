@@ -1,13 +1,14 @@
+import { LoginStartAction } from '../../core/auth/auth.actions';
+import { State } from '../../app.reducer';
+import { Store } from '@ngrx/store';
+import { IUserCredentials } from '../../shared/user.entity';
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
-  OnDestroy,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
-import { AuthService } from '../../core/auth/auth.service';
 import { LoaderService } from './../../shared/loader/loader.service';
 
 @Component({
@@ -16,29 +17,19 @@ import { LoaderService } from './../../shared/loader/loader.service';
   templateUrl: './login.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent {
   private _subscriptions: Subscription[] = [];
 
   constructor(
-    private authService: AuthService,
-    private loaderService: LoaderService,
-    private router: Router,
+    private store: Store<State>,
   ) {}
 
-  public ngOnInit() {
-    console.log('LoginComponent init');
-  }
-
   public login(login, password) {
-    this.loaderService.show();
-    this._subscriptions.push(
-      this.authService.login(login, password)
-        .do(() => this.loaderService.hide())
-        .do(() => this.router.navigate(['']))
-        .subscribe());
-  }
+    const credentials: IUserCredentials = {
+      login,
+      password,
+    };
 
-  public ngOnDestroy(): void {
-    this._subscriptions.forEach((s) => s.unsubscribe());
+    this.store.dispatch(new LoginStartAction(credentials));
   }
 }
