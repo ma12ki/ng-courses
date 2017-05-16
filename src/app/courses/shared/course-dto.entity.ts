@@ -8,7 +8,7 @@ export interface ICourseDto {
   durationSeconds: number;
   description: string;
   topRated: boolean;
-  authors: number[]
+  authors: number[];
 }
 
 export class CourseDto implements ICourseDto {
