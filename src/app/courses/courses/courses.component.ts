@@ -60,14 +60,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
     this.fetchCourses();
   }
 
-  public initTotalCourses(): void {
-    this.totalCourses$ = this.coursesService.totalCourses$;
-  }
-
-  public initCourses(): void {
-    this.courses$ = this.coursesService.courses$;
-  }
-
   public fetchCourses(offset = 0, searchTerm = ''): void {
     this.store.dispatch(new LoadStartAction({ offset, searchTerm }));
   }
