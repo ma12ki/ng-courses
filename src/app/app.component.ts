@@ -8,8 +8,6 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 
-import { PerformanceService } from './core/performance/performance.service';
-
 /*
  * App Component
  * Top Level Component
@@ -24,14 +22,9 @@ import { PerformanceService } from './core/performance/performance.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
-  constructor(
-    private performanceService: PerformanceService,
-  ) { }
-
   public ngOnInit() {
     console.log('AppComponent init');
   }
-
 }
 
 /*
