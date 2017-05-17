@@ -1,17 +1,17 @@
 import { IUser, IUserCredentials } from '../../shared/user.entity';
+import { TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { EffectsRunner, EffectsTestingModule } from '@ngrx/effects/testing';
+import { Observable } from 'rxjs/Rx';
+
 import {
     LoginErrorAction,
     LoginStartAction,
     LoginSuccessAction,
     LogoutErrorAction,
     LogoutStartAction,
-    LogoutSuccessAction
+    LogoutSuccessAction,
 } from './auth.actions';
-import { TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
-import { EffectsRunner, EffectsTestingModule } from '@ngrx/effects/testing';
-import { Observable } from 'rxjs/Rx';
-
 import { LoaderService } from '../../shared/loader';
 import { AuthService } from './auth.service';
 import { AuthEffects } from './auth.effects';
