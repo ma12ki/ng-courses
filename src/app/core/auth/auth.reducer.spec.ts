@@ -1,3 +1,5 @@
+import { Action } from '@ngrx/store';
+
 import { IUser, IUserCredentials } from '../../shared/user.entity';
 import {
     LoginErrorAction,
@@ -5,10 +7,8 @@ import {
     LoginSuccessAction,
     LogoutErrorAction,
     LogoutStartAction,
-    LogoutSuccessAction
+    LogoutSuccessAction,
 } from './auth.actions';
-import { Action } from '@ngrx/store';
-
 import { initialState, reducer, State } from './auth.reducer';
 
 describe('Auth reducer', () => {
