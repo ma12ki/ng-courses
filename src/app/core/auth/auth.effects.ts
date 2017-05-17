@@ -37,10 +37,11 @@ export class AuthEffects {
   public logout$ = this.actions$
     .ofType(auth.LOGOUT_START)
     .do(() => this.loaderService.show())
-    .delay(500)
     .do(() => removeAuthStorage())
     .map(() => new auth.LogoutSuccessAction())
-    .do(() => this.router.navigateByUrl('/login'))
+    .do(() => {
+      this.router.navigateByUrl('/login');
+    })
     .catch((err) => Observable.of(new auth.LogoutErrorAction(err)))
     .do(() => this.loaderService.hide());
 }
