@@ -49,8 +49,6 @@ export function reducer(state = initialState, action: auth.Actions): State {
     case auth.LOGOUT_SUCCESS: {
       return {
         ...initialState,
-        loading: false,
-        error: null,
       };
     }
     default: {
