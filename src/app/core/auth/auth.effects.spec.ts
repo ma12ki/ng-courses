@@ -1,5 +1,12 @@
 import { IUser, IUserCredentials } from '../../shared/user.entity';
-import { LoginErrorAction, LoginStartAction, LoginSuccessAction } from './auth.actions';
+import {
+    LoginErrorAction,
+    LoginStartAction,
+    LoginSuccessAction,
+    LogoutErrorAction,
+    LogoutStartAction,
+    LogoutSuccessAction
+} from './auth.actions';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { EffectsRunner, EffectsTestingModule } from '@ngrx/effects/testing';
@@ -148,5 +155,74 @@ describe('AuthEffects', () => {
         });
       });
     });
+  });
+
+  describe('logout$', () => {
+    const logoutStartAction = new LogoutStartAction();
+
+    describe('when logout succeeds', () => {
+      it('shows and hides loader', () => {
+        runner.queue(logoutStartAction);
+
+        authEffects.logout$.subscribe((result) => {
+          expect(mockLoaderService.show).toHaveBeenCalled();
+          expect(mockLoaderService.hide).toHaveBeenCalled();
+        });
+      });
+
+      it('redirects to login page', () => {
+        runner.queue(logoutStartAction);
+
+        authEffects.logout$.subscribe((result) => {
+          expect(mockRouter.navigateByUrl).toHaveBeenCalledWith('/login');
+        });
+      });
+
+      it('emits logout success action', () => {
+        const expected = new LogoutSuccessAction();
+
+        runner.queue(logoutStartAction);
+
+        authEffects.logout$.subscribe((result) => {
+          expect(result).toEqual(expected);
+        });
+      });
+    });
+
+    describe('when logout fails', () => {
+      const logoutError = new Error('sad faec :(');
+
+      beforeEach(() => {
+        mockLoaderService.show.and.throwError(logoutError);
+      });
+
+      it('shows and hides loader', () => {
+        runner.queue(logoutStartAction);
+
+        authEffects.logout$.subscribe((result) => {
+          expect(mockLoaderService.show).toHaveBeenCalled();
+          expect(mockLoaderService.hide).toHaveBeenCalled();
+        });
+      });
+
+      it('does not redirect anywhere', () => {
+        runner.queue(logoutStartAction);
+
+        authEffects.logout$.subscribe((result) => {
+          expect(mockRouter.navigateByUrl).not.toHaveBeenCalled();
+        });
+      });
+
+      it('emits logout error action', () => {
+        const expected = new LogoutErrorAction(logoutError);
+
+        runner.queue(logoutStartAction);
+
+        authEffects.logout$.subscribe((result) => {
+          expect(result).toEqual(expected);
+        });
+      });
+    });
+
   });
 });
