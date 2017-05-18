@@ -21,7 +21,13 @@ module.exports = function (config) {
     exclude: [],
 
     client: {
-      captureConsole: false
+      captureConsole: true
+    },
+
+    browserConsoleLogOptions: {
+      level: 'log',
+      format: '%b %T: %m',
+      terminal: true
     },
 
     /*
@@ -67,7 +73,7 @@ module.exports = function (config) {
       noInfo: true,
       // and use stats to turn off verbose output
       stats: {
-        // options i.e. 
+        // options i.e.
         chunks: false
       }
     },
@@ -90,7 +96,7 @@ module.exports = function (config) {
      * level of logging
      * possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
      */
-    logLevel: config.LOG_WARN,
+    logLevel: config.LOG_INFO,
 
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: false,
@@ -100,13 +106,17 @@ module.exports = function (config) {
      * available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
      */
     browsers: [
-      'Chrome'
+      'ChromeDebugging'
     ],
 
     customLaunchers: {
       ChromeTravisCi: {
         base: 'Chrome',
         flags: ['--no-sandbox']
+      },
+      ChromeDebugging: {
+        base: 'Chrome',
+        flags: [ '--remote-debugging-port=9333' ]
       }
     },
 
