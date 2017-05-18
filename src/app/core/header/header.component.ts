@@ -6,7 +6,7 @@ import {
 import { Observable } from 'rxjs/Rx';
 import { Store } from '@ngrx/store';
 
-import { IUser } from './../../entities/user';
+import { IUser } from '../../shared/user.entity';
 import { authSelectors, State } from '../../app.reducer';
 import { LogoutStartAction } from '../auth/auth.actions';
 
