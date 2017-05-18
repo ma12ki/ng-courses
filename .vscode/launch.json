@@ -2,6 +2,19 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Attach to Chrome - Karma",
+            "type": "chrome",
+            "request": "attach",
+            "url": "http://localhost:9876",
+            "port": 9333,
+            "sourceMaps": true,
+            "webRoot": "${workspaceRoot}",
+            "pathMapping": {
+              "/": "${workspaceRoot}",
+              "/base/": "${workspaceRoot}/"
+            }
+        },
+        {
             "name": "Launch Chrome against localhost, with sourcemaps",
             "type": "chrome",
             "request": "launch",
