@@ -1,6 +1,6 @@
 import { State } from './auth.reducer';
 
-const AUTH_STATE_KEY = 'AUTH_STATE';
+export const AUTH_STATE_KEY = 'AUTH_STATE';
 
 export const store = (state: State): void => {
   try {
