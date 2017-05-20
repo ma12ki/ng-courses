@@ -13,9 +13,6 @@ import 'rxjs';
 import * as moment from 'moment';
 import { Store } from '@ngrx/store';
 
-import { LoaderService } from './../../shared/loader/loader.service';
-import { CoursesService } from '../shared/courses.service';
-import { CourseFindPipe } from '../shared/course-helpers/course-find.pipe';
 import { ICourse } from '../shared/course.entity';
 import { CourseDeleteModalComponent } from '../course-delete-modal/';
 import { LoadStartAction, RemoveStartAction } from '../courses.actions';
@@ -41,10 +38,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private coursesService: CoursesService,
-    private loaderService: LoaderService,
     private dialog: MdDialog,
-    private courseFindPipe: CourseFindPipe,
     private store: Store<State>,
   ) {
     this.courses$ = this.store.select(coursesSelectors.getItems);
@@ -55,8 +49,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    // this.initTotalCourses();
-    // this.initCourses();
     this.fetchCourses();
   }
 
