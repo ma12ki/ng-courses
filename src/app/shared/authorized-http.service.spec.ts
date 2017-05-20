@@ -76,6 +76,16 @@ describe(`AuthorizedHttp`, () => {
     });
   });
 
+  describe('#delete()', () => {
+    it('calls parent function with proper params', () => {
+      const deleteSpy = spyOn(Http.prototype, 'delete');
+
+      service.delete(url, inputOptions);
+
+      expect(deleteSpy).toHaveBeenCalledWith(url, expectedOptions);
+    });
+  });
+
   describe('#head()', () => {
     it('calls parent function with proper params', () => {
       const headSpy = spyOn(Http.prototype, 'head');
