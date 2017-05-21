@@ -41,8 +41,6 @@ const DATE_INPUT_VALIDATOR = {
   ],
 })
 export class DateInputComponent implements ControlValueAccessor, Validator {
-  @Input() public control: FormControl;
-
   public viewValue: string;
   public modelValue: Date;
   public acceptedFormat = 'DD/MM/YYYY';
