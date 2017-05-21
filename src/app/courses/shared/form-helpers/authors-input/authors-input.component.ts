@@ -45,7 +45,6 @@ const AUTHORS_INPUT_VALIDATOR = {
   ],
 })
 export class AuthorsInputComponent implements ControlValueAccessor, Validator {
-  @Input() public control: FormControl;
   @Input() public authors: IAuthor[];
 
   private _value: number[] = [];
