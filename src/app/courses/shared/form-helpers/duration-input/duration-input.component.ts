@@ -40,8 +40,6 @@ const DURATION_INPUT_VALIDATOR = {
   ],
 })
 export class DurationInputComponent implements ControlValueAccessor, Validator {
-  @Input() public control: FormControl;
-
   public viewValue: string;
   public modelValue: number;
   private _validationErrors: ValidationErrors;
@@ -65,7 +63,7 @@ export class DurationInputComponent implements ControlValueAccessor, Validator {
     } else {
       this.modelValue = null;
     }
-    this._validationErrors = (newModelValue && !valid) ? { invalidNumber: true } : null;
+    this._validationErrors = (this.viewValue && !valid) ? { invalidNumber: true } : null;
 
     if (this._isViewValueChanged(oldViewValue)) {
       this._emitChange();
