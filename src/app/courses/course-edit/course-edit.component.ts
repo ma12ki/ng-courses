@@ -18,7 +18,7 @@ import { IAuthor } from '../shared/author.entity';
 import { coursesSelectors, State } from '../../app.reducer';
 import { LoadOneStartAction, SaveStartAction } from '../courses.actions';
 
-interface IFormValue {
+export interface IFormValue {
   title: string;
   description: string;
   date: Date;
@@ -43,7 +43,6 @@ export class CourseEditComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private authorsService: AuthorsService,
-    private cd: ChangeDetectorRef,
     private store: Store<State>,
   ) {}
 
