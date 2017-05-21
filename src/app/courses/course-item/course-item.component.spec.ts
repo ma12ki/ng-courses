@@ -9,7 +9,7 @@ import { CourseDurationPipe } from '../shared/course-helpers/course-duration.pip
 import { ICourse } from '../shared/course.entity';
 import { CourseItemComponent } from './course-item.component';
 
-describe('CourseListComponent', () => {
+describe('CourseItemComponent', () => {
   let fixture: ComponentFixture<CourseItemComponent>;
   let component: CourseItemComponent;
   let element: DebugElement;
